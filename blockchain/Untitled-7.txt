@@ -1,0 +1,9 @@
+
+If you prefer using VS Code's integrated debugging:
+1. Open VS Code
+2. Open the blockchain folder
+3. Press Ctrl+Shift+D to open the Run and Debug view
+4. Select "Full Blockchain Stack" from the dropdown
+5. Click the green play button
+
+This will start both the Web3 server and workflow with full debugging capabilities, allowing you to set breakpoints and inspect variables.

@@ -1,0 +1,3250 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)https://research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/ -->
+<html lang="en" data-glue="glue@27.1.0"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    
+        
+<link rel="canonical" href="https://research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/"><meta property="og:title" content="Evaluating progress of LLMs on scientific problem-solving"><meta property="og:url" content="https://research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/"><meta property="og:image" content="https://storage.googleapis.com/gweb-research2023-media/images/Open_Graph.width-800.format-jpeg.jpg"><meta property="og:image:secure_url" content="https://storage.googleapis.com/gweb-research2023-media/images/Open_Graph.width-800.format-jpeg.jpg"><meta property="og:type" content="Website">
+
+    
+    
+    <title>Evaluating progress of LLMs on scientific problem-solving</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1 viewport-fit=cover">
+
+    
+    
+
+    <link rel="icon" type="image/png" href="https://research.google/gr/static/assets/favicon.ico">
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link rel="preload" href="./Evaluating progress of LLMs on scientific problem-solving_files/css2" as="style">
+    <link rel="stylesheet" href="./Evaluating progress of LLMs on scientific problem-solving_files/css2">
+    <link href="./Evaluating progress of LLMs on scientific problem-solving_files/css2(1)" rel="stylesheet">
+
+    
+    <link href="./Evaluating progress of LLMs on scientific problem-solving_files/cookienotificationbar.min.css" rel="stylesheet">
+    <link href="./Evaluating progress of LLMs on scientific problem-solving_files/glue-material.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./Evaluating progress of LLMs on scientific problem-solving_files/googleresearch.css">
+
+    
+    
+    
+
+    
+
+    <!-- Google Tag Manager -->
+    <script type="text/javascript" id="www-widgetapi-script" src="./Evaluating progress of LLMs on scientific problem-solving_files/www-widgetapi.js.download" async=""></script><script type="text/javascript" async="" src="./Evaluating progress of LLMs on scientific problem-solving_files/analytics.js.download"></script><script type="text/javascript" async="" src="./Evaluating progress of LLMs on scientific problem-solving_files/js"></script><script async="" src="./Evaluating progress of LLMs on scientific problem-solving_files/gtm.js.download"></script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-K8QBZ7Q');
+    </script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body class=" js-google-tag-wrapper" data-gt-page-path="https://research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/" data-env="production">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K8QBZ7Q"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    
+        
+
+
+
+
+
+
+
+<header class="global-header glue-header glue-header--single not-glue" aria-expanded="false">
+  <a href="https://research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/#page-content" class="glue-header__skip-content">Jump to Content</a>
+  <div class="glue-header__bar glue-header__bar--mobile not-glue">
+    <div class="glue-header__tier not-glue">
+      <!-- mobile lockup component -->
+      <div class="glue-header__container">
+        <div class="glue-header__lock-up">
+          <!-- Hamburger button component -->
+          <div class="glue-header__hamburger">
+            <button class="glue-header__drawer-toggle-btn" aria-label="Open the navigation drawer" aria-controls="glue-drawer-1f27e64" aria-expanded="false" aria-haspopup="true">
+              <svg class="glue-icon glue-icon--24px" role="presentation" aria-hidden="true">
+                <use href="/gr/static/assets/icons/glue-icons.svg#menu"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="glue-header__logo">
+            <a class="glue-header__logo-link" href="https://research.google/" title="Google Research">
+              <!-- Logo component -->
+              <div class="glue-header__logo-container">
+                
+                
+
+
+
+  
+
+<svg role="presentation" aria-hidden="true" alt="Google" class="glue-icon  glue-icon glue-header__logo-svg">
+  <use href="/gr/static/assets/icons/glue-icons.svg#google-color-logo"></use>
+</svg>
+
+                
+
+              </div>
+              <span class="glue-header__logo--product">Research</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="glue-header__bar glue-header__bar--desktop glue-header__drawer glue-header-is-wholly-scrolled" id="glue-drawer-1f27e64" style="position: fixed; top: 0px;">
+    <div class="glue-header__tier">
+      <!-- desktop lockup component -->
+      <div class="glue-header__container">
+        <div class="glue-header__lock-up">
+          <div class="glue-header__logo">
+            <a class="glue-header__logo-link" href="https://research.google/" title="Google Research">
+              <!-- Logo component -->
+              <div class="glue-header__logo-container">
+                
+
+
+
+  
+
+<svg role="presentation" aria-hidden="true" alt="Google" class="glue-icon  glue-icon glue-header__logo-svg not-glue --dark-logo">
+  <use href="/gr/static/assets/icons/glue-icons.svg#google-solid-logo"></use>
+</svg>
+
+                
+
+
+
+  
+
+<svg role="presentation" aria-hidden="true" alt="Google" class="glue-icon  glue-icon glue-header__logo-svg --light-logo">
+  <use href="/gr/static/assets/icons/glue-icons.svg#google-color-logo"></use>
+</svg>
+
+              </div>
+              <span class="glue-header__logo--product">Research</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- linkbar component -->
+      <div class="glue-header__container glue-header__container--linkbar">
+        <nav class="glue-header__link-bar navigation js-gt-global-nav-wrapper">
+          <ul class="glue-header__list">
+            
+              
+
+
+
+  
+  
+  <li class="glue-header__item  js-sub-nav-parent --parent" data-gt-primary="Who we are">
+  
+    <button class="glue-header__link js-sub-nav-target" aria-haspopup="true" aria-expanded="false">
+      
+      <span class="">
+        Who we are
+        
+          <span class="icon icon--caret"></span>
+        
+      </span>
+    
+    </button>
+    
+    
+      <div class="navigation__sub js-sub-nav" role="menu">
+        <div class="navigation__sub__container">
+          <div class="navigation__sub__mobile-heading">
+            <button class="glue-header__link js-sub-nav-close-mobile">
+              <span class="sr-text">Back to</span>
+              <span class="icon icon--caret"></span> Who we are
+              <span class="sr-text">menu</span>
+            </button>
+            <hr>
+          </div>
+          <div class="block-nav_drawer_columns_content">
+
+<div class="navigation__sub--content" data-gt-secondary="Defining the technology of today and tomorrow.">
+    <div class="navigation__sub__wrapper">
+        
+            <div class="navigation__sub__heading">
+                <h2 class="headline-3">Defining the technology of today and tomorrow.</h2>
+                
+            </div>
+        
+
+        <ul class="navigation__sub__columns">
+            
+                
+
+<li data-gt-secondary="Philosophy">
+    <div class="navigation__sub__columns__desktop">
+        
+            <h2 class="headline-6 navigation__sub__columns__heading">
+                Philosophy
+            </h2>
+        
+        <p class="navigation__sub__columns__description caption">We strive to create an environment conducive to many different types of research across many different time scales and levels of risk.</p>
+        
+            <a href="https://research.google/philosophy/" class="glue-inline-link js-drawer-link" tabindex="-1">
+                <span class="sr-text">Learn more about our Philosophy</span>
+                <span aria-hidden="true">Learn more</span>
+            </a>
+        
+    </div>
+    <div class="navigation__sub__columns__mobile">
+        
+            <a class="glue-header__link" href="https://research.google/philosophy/">
+                Philosophy
+            </a>
+        
+    </div>
+</li>
+
+            
+                
+
+<li data-gt-secondary="People">
+    <div class="navigation__sub__columns__desktop">
+        
+            <h2 class="headline-6 navigation__sub__columns__heading">
+                People
+            </h2>
+        
+        <p class="navigation__sub__columns__description caption">Our researchers drive advancements in computer science through both fundamental and applied research.</p>
+        
+            <a href="https://research.google/people/" class="glue-inline-link js-drawer-link" tabindex="-1">
+                <span class="sr-text">Learn more about our People</span>
+                <span aria-hidden="true">Learn more</span>
+            </a>
+        
+    </div>
+    <div class="navigation__sub__columns__mobile">
+        
+            <a class="glue-header__link" href="https://research.google/people/">
+                People
+            </a>
+        
+    </div>
+</li>
+
+            
+        </ul>
+
+        
+    </div>
+</div>
+</div>
+        </div>
+      </div>
+    
+  </li>
+
+
+            
+              
+
+
+
+  
+  
+  <li class="glue-header__item  js-sub-nav-parent --parent" data-gt-primary="Research areas">
+  
+    <button class="glue-header__link js-sub-nav-target" aria-haspopup="true" aria-expanded="false">
+      
+      <span class="">
+        Research areas
+        
+          <span class="icon icon--caret"></span>
+        
+      </span>
+    
+    </button>
+    
+    
+      <div class="navigation__sub js-sub-nav" role="menu">
+        <div class="navigation__sub__container">
+          <div class="navigation__sub__mobile-heading">
+            <button class="glue-header__link js-sub-nav-close-mobile">
+              <span class="sr-text">Back to</span>
+              <span class="icon icon--caret"></span> Research areas
+              <span class="sr-text">menu</span>
+            </button>
+            <hr>
+          </div>
+          <div class="block-nav_drawer_columns_link_list">
+
+
+<div class="navigation__sub--list">
+    <div class="navigation__sub__wrapper">
+        <ul class="navigation__sub__columns">
+            
+                
+
+
+<li data-gt-secondary="Research areas">
+    <div class="navigation__sub__columns__desktop">
+        
+            <h2 class="headline-6 navigation__sub__columns__heading">Research areas</h2>
+        
+
+        
+            <ul>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/" tabindex="-1">
+                                Explore all research areas
+                            </a>
+                        
+                    </li>
+                
+            </ul>
+        
+    </div>
+    <div class="navigation__sub__columns__mobile">
+        <button class="glue-header__link js-sub-nav-target" data-panel="nested" role="menuitem" aria-haspopup="true">
+            Research areas <span class="icon icon--caret"></span>
+        </button>
+
+        <div class="navigation__nested-sub js-sub-nav-parent">
+            
+              <div class="navigation__sub__mobile-heading">
+                <button class="glue-header__link js-sub-nav-close-mobile" role="menuitem" aria-haspopup="true">
+                  <span class="sr-text">Back to</span>
+                  <span class="icon icon--caret"></span> Research areas
+                  <span class="sr-text">menu</span>
+                </button>
+                <hr>
+              </div>
+              <ul>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/" class="navigation__sub__columns__mobile__link">
+                                    Explore all research areas
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                </ul>
+            
+        </div>
+    </div>
+</li>
+
+            
+                
+
+
+<li data-gt-secondary="Foundational ML &amp; Algorithms">
+    <div class="navigation__sub__columns__desktop">
+        
+            <h2 class="headline-6 navigation__sub__columns__heading">Foundational ML &amp; Algorithms</h2>
+        
+
+        
+            <ul>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/algorithms-and-theory/" tabindex="-1">
+                                Algorithms &amp; Theory
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/data-management/" tabindex="-1">
+                                Data Management
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/data-mining-and-modeling/" tabindex="-1">
+                                Data Mining &amp; Modeling
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/information-retrieval-and-the-web/" tabindex="-1">
+                                Information Retrieval &amp; the Web
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/machine-intelligence/" tabindex="-1">
+                                Machine Intelligence
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/machine-perception/" tabindex="-1">
+                                Machine Perception
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/machine-translation/" tabindex="-1">
+                                Machine Translation
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/natural-language-processing/" tabindex="-1">
+                                Natural Language Processing
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/speech-processing/" tabindex="-1">
+                                Speech Processing
+                            </a>
+                        
+                    </li>
+                
+            </ul>
+        
+    </div>
+    <div class="navigation__sub__columns__mobile">
+        <button class="glue-header__link js-sub-nav-target" data-panel="nested" role="menuitem" aria-haspopup="true">
+            Foundational ML &amp; Algorithms <span class="icon icon--caret"></span>
+        </button>
+
+        <div class="navigation__nested-sub js-sub-nav-parent">
+            
+              <div class="navigation__sub__mobile-heading">
+                <button class="glue-header__link js-sub-nav-close-mobile" role="menuitem" aria-haspopup="true">
+                  <span class="sr-text">Back to</span>
+                  <span class="icon icon--caret"></span> Foundational ML &amp; Algorithms
+                  <span class="sr-text">menu</span>
+                </button>
+                <hr>
+              </div>
+              <ul>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/algorithms-and-theory/" class="navigation__sub__columns__mobile__link">
+                                    Algorithms &amp; Theory
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/data-management/" class="navigation__sub__columns__mobile__link">
+                                    Data Management
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/data-mining-and-modeling/" class="navigation__sub__columns__mobile__link">
+                                    Data Mining &amp; Modeling
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/information-retrieval-and-the-web/" class="navigation__sub__columns__mobile__link">
+                                    Information Retrieval &amp; the Web
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/machine-intelligence/" class="navigation__sub__columns__mobile__link">
+                                    Machine Intelligence
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/machine-perception/" class="navigation__sub__columns__mobile__link">
+                                    Machine Perception
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/machine-translation/" class="navigation__sub__columns__mobile__link">
+                                    Machine Translation
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/natural-language-processing/" class="navigation__sub__columns__mobile__link">
+                                    Natural Language Processing
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/speech-processing/" class="navigation__sub__columns__mobile__link">
+                                    Speech Processing
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                </ul>
+            
+        </div>
+    </div>
+</li>
+
+            
+                
+
+
+<li data-gt-secondary="Computing Systems &amp; Quantum AI">
+    <div class="navigation__sub__columns__desktop">
+        
+            <h2 class="headline-6 navigation__sub__columns__heading">Computing Systems &amp; Quantum AI</h2>
+        
+
+        
+            <ul>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/distributed-systems-and-parallel-computing/" tabindex="-1">
+                                Distributed Systems &amp; ParallelComputing
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/hardware-and-architecture/" tabindex="-1">
+                                Hardware &amp; Architecture
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/mobile-systems/" tabindex="-1">
+                                Mobile Systems
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/networking/" tabindex="-1">
+                                Networking
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/quantum-computing/" tabindex="-1">
+                                Quantum Computing
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/robotics/" tabindex="-1">
+                                Robotics
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/security-privacy-and-abuse-prevention/" tabindex="-1">
+                                Security, Privacy, &amp; AbusePrevention
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/software-engineering/" tabindex="-1">
+                                Software Engineering
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/software-systems/" tabindex="-1">
+                                Software Systems
+                            </a>
+                        
+                    </li>
+                
+            </ul>
+        
+    </div>
+    <div class="navigation__sub__columns__mobile">
+        <button class="glue-header__link js-sub-nav-target" data-panel="nested" role="menuitem" aria-haspopup="true">
+            Computing Systems &amp; Quantum AI <span class="icon icon--caret"></span>
+        </button>
+
+        <div class="navigation__nested-sub js-sub-nav-parent">
+            
+              <div class="navigation__sub__mobile-heading">
+                <button class="glue-header__link js-sub-nav-close-mobile" role="menuitem" aria-haspopup="true">
+                  <span class="sr-text">Back to</span>
+                  <span class="icon icon--caret"></span> Computing Systems &amp; Quantum AI
+                  <span class="sr-text">menu</span>
+                </button>
+                <hr>
+              </div>
+              <ul>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/distributed-systems-and-parallel-computing/" class="navigation__sub__columns__mobile__link">
+                                    Distributed Systems &amp; ParallelComputing
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/hardware-and-architecture/" class="navigation__sub__columns__mobile__link">
+                                    Hardware &amp; Architecture
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/mobile-systems/" class="navigation__sub__columns__mobile__link">
+                                    Mobile Systems
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/networking/" class="navigation__sub__columns__mobile__link">
+                                    Networking
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/quantum-computing/" class="navigation__sub__columns__mobile__link">
+                                    Quantum Computing
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/robotics/" class="navigation__sub__columns__mobile__link">
+                                    Robotics
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/security-privacy-and-abuse-prevention/" class="navigation__sub__columns__mobile__link">
+                                    Security, Privacy, &amp; AbusePrevention
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/software-engineering/" class="navigation__sub__columns__mobile__link">
+                                    Software Engineering
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/software-systems/" class="navigation__sub__columns__mobile__link">
+                                    Software Systems
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                </ul>
+            
+        </div>
+    </div>
+</li>
+
+            
+                
+
+
+<li data-gt-secondary="Science, AI &amp; Society">
+    <div class="navigation__sub__columns__desktop">
+        
+            <h2 class="headline-6 navigation__sub__columns__heading">Science, AI &amp; Society</h2>
+        
+
+        
+            <ul>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/climate-and-sustainability/" tabindex="-1">
+                                Climate &amp; Sustainability
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/economics-and-electronic-commerce/" tabindex="-1">
+                                Economics &amp; Electronic Commerce
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/education-innovation/" tabindex="-1">
+                                Education Innovation
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/general-science/" tabindex="-1">
+                                General Science
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/health-bioscience/" tabindex="-1">
+                                Health &amp; Bioscience
+                            </a>
+                        
+                    </li>
+                
+                    <li>
+                        
+                            <a class="navigation__sub__columns__list-link caption js-drawer-link" href="https://research.google/research-areas/human-computer-interaction-and-visualization/" tabindex="-1">
+                                Human-Computer Interaction and Visualization
+                            </a>
+                        
+                    </li>
+                
+            </ul>
+        
+    </div>
+    <div class="navigation__sub__columns__mobile">
+        <button class="glue-header__link js-sub-nav-target" data-panel="nested" role="menuitem" aria-haspopup="true">
+            Science, AI &amp; Society <span class="icon icon--caret"></span>
+        </button>
+
+        <div class="navigation__nested-sub js-sub-nav-parent">
+            
+              <div class="navigation__sub__mobile-heading">
+                <button class="glue-header__link js-sub-nav-close-mobile" role="menuitem" aria-haspopup="true">
+                  <span class="sr-text">Back to</span>
+                  <span class="icon icon--caret"></span> Science, AI &amp; Society
+                  <span class="sr-text">menu</span>
+                </button>
+                <hr>
+              </div>
+              <ul>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/climate-and-sustainability/" class="navigation__sub__columns__mobile__link">
+                                    Climate &amp; Sustainability
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/economics-and-electronic-commerce/" class="navigation__sub__columns__mobile__link">
+                                    Economics &amp; Electronic Commerce
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/education-innovation/" class="navigation__sub__columns__mobile__link">
+                                    Education Innovation
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/general-science/" class="navigation__sub__columns__mobile__link">
+                                    General Science
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/health-bioscience/" class="navigation__sub__columns__mobile__link">
+                                    Health &amp; Bioscience
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                        <li role="menuitem">
+                            
+                            <a href="https://research.google/research-areas/human-computer-interaction-and-visualization/" class="navigation__sub__columns__mobile__link">
+                                    Human-Computer Interaction and Visualization
+                                    <span>
+                                        
+                                    </span>
+                                </a>
+                            
+                        </li>
+                    
+                </ul>
+            
+        </div>
+    </div>
+</li>
+
+            
+        </ul>
+
+        
+    </div>
+</div></div>
+        </div>
+      </div>
+    
+  </li>
+
+
+            
+              
+
+
+
+  
+  
+  <li class="glue-header__item  js-sub-nav-parent --parent" data-gt-primary="Our work">
+  
+    <button class="glue-header__link js-sub-nav-target" aria-haspopup="true" aria-expanded="false">
+      
+      <span class="">
+        Our work
+        
+          <span class="icon icon--caret"></span>
+        
+      </span>
+    
+    </button>
+    
+    
+      <div class="navigation__sub js-sub-nav" role="menu">
+        <div class="navigation__sub__container">
+          <div class="navigation__sub__mobile-heading">
+            <button class="glue-header__link js-sub-nav-close-mobile">
+              <span class="sr-text">Back to</span>
+              <span class="icon icon--caret"></span> Our work
+              <span class="sr-text">menu</span>
+            </button>
+            <hr>
+          </div>
+          <div class="block-nav_drawer_columns_content">
+
+<div class="navigation__sub--content" data-gt-secondary="">
+    <div class="navigation__sub__wrapper">
+        
+
+        <ul class="navigation__sub__columns">
+            
+                
+
+<li data-gt-secondary="Projects">
+    <div class="navigation__sub__columns__desktop">
+        
+            <h2 class="headline-6 navigation__sub__columns__heading">
+                Projects
+            </h2>
+        
+        <p class="navigation__sub__columns__description caption">We regularly open-source projects with the broader research community and apply our developments to Google products.</p>
+        
+            <a href="https://research.google/resources/our-projects/" class="glue-inline-link js-drawer-link" tabindex="-1">
+                <span class="sr-text">Learn more about our Projects</span>
+                <span aria-hidden="true">Learn more</span>
+            </a>
+        
+    </div>
+    <div class="navigation__sub__columns__mobile">
+        
+            <a class="glue-header__link" href="https://research.google/resources/our-projects/">
+                Projects
+            </a>
+        
+    </div>
+</li>
+
+            
+                
+
+<li data-gt-secondary="Publications">
+    <div class="navigation__sub__columns__desktop">
+        
+            <h2 class="headline-6 navigation__sub__columns__heading">
+                Publications
+            </h2>
+        
+        <p class="navigation__sub__columns__description caption">Publishing our work allows us to share ideas and work collaboratively to advance the field of computer science.</p>
+        
+            <a href="https://research.google/pubs/" class="glue-inline-link js-drawer-link" tabindex="-1">
+                <span class="sr-text">Learn more about our Publications</span>
+                <span aria-hidden="true">Learn more</span>
+            </a>
+        
+    </div>
+    <div class="navigation__sub__columns__mobile">
+        
+            <a class="glue-header__link" href="https://research.google/pubs/">
+                Publications
+            </a>
+        
+    </div>
+</li>
+
+            
+                
+
+<li data-gt-secondary="Resources">
+    <div class="navigation__sub__columns__desktop">
+        
+            <h2 class="headline-6 navigation__sub__columns__heading">
+                Resources
+            </h2>
+        
+        <p class="navigation__sub__columns__description caption">We make products, tools, and datasets available to everyone with the goal of building a more collaborative ecosystem.</p>
+        
+            <a href="https://research.google/resources/" class="glue-inline-link js-drawer-link" tabindex="-1">
+                <span class="sr-text">Learn more about our Resources</span>
+                <span aria-hidden="true">Learn more</span>
+            </a>
+        
+    </div>
+    <div class="navigation__sub__columns__mobile">
+        
+            <a class="glue-header__link" href="https://research.google/resources/">
+                Resources
+            </a>
+        
+    </div>
+</li>
+
+            
+        </ul>
+
+        
+    </div>
+</div>
+</div>
+        </div>
+      </div>
+    
+  </li>
+
+
+            
+              
+
+
+
+  
+  
+  <li class="glue-header__item  js-sub-nav-parent --parent" data-gt-primary="Programs &amp; events">
+  
+    <button class="glue-header__link js-sub-nav-target" aria-haspopup="true" aria-expanded="false">
+      
+      <span class="">
+        Programs &amp; events
+        
+          <span class="icon icon--caret"></span>
+        
+      </span>
+    
+    </button>
+    
+    
+      <div class="navigation__sub js-sub-nav" role="menu">
+        <div class="navigation__sub__container">
+          <div class="navigation__sub__mobile-heading">
+            <button class="glue-header__link js-sub-nav-close-mobile">
+              <span class="sr-text">Back to</span>
+              <span class="icon icon--caret"></span> Programs &amp; events
+              <span class="sr-text">menu</span>
+            </button>
+            <hr>
+          </div>
+          <div class="block-nav_drawer_columns_content">
+
+<div class="navigation__sub--content" data-gt-secondary="Shaping the future, together.">
+    <div class="navigation__sub__wrapper">
+        
+            <div class="navigation__sub__heading">
+                <h2 class="headline-3">Shaping the future, together.</h2>
+                
+                    <a href="https://research.google/programs-and-events/" class="js-drawer-link" tabindex="-1">
+                        Collaborate with us
+                    </a>
+                
+            </div>
+        
+
+        <ul class="navigation__sub__columns">
+            
+                
+
+<li data-gt-secondary="Student programs">
+    <div class="navigation__sub__columns__desktop">
+        
+            <h2 class="headline-6 navigation__sub__columns__heading">
+                Student programs
+            </h2>
+        
+        <p class="navigation__sub__columns__description caption">Supporting the next generation of researchers through a wide range of programming.</p>
+        
+            <a href="https://research.google/programs-and-events/student-engagement/" class="glue-inline-link js-drawer-link" tabindex="-1">
+                <span class="sr-text">Learn more about our Student programs</span>
+                <span aria-hidden="true">Learn more</span>
+            </a>
+        
+    </div>
+    <div class="navigation__sub__columns__mobile">
+        
+            <a class="glue-header__link" href="https://research.google/programs-and-events/student-engagement/">
+                Student programs
+            </a>
+        
+    </div>
+</li>
+
+            
+                
+
+<li data-gt-secondary="Faculty programs">
+    <div class="navigation__sub__columns__desktop">
+        
+            <h2 class="headline-6 navigation__sub__columns__heading">
+                Faculty programs
+            </h2>
+        
+        <p class="navigation__sub__columns__description caption">Participating in the academic research community through meaningful engagement with university faculty.</p>
+        
+            <a href="https://research.google/programs-and-events/faculty-engagement/" class="glue-inline-link js-drawer-link" tabindex="-1">
+                <span class="sr-text">Learn more about our Faculty programs</span>
+                <span aria-hidden="true">Learn more</span>
+            </a>
+        
+    </div>
+    <div class="navigation__sub__columns__mobile">
+        
+            <a class="glue-header__link" href="https://research.google/programs-and-events/faculty-engagement/">
+                Faculty programs
+            </a>
+        
+    </div>
+</li>
+
+            
+                
+
+<li data-gt-secondary="Conferences &amp; events">
+    <div class="navigation__sub__columns__desktop">
+        
+            <h2 class="headline-6 navigation__sub__columns__heading">
+                Conferences &amp; events
+            </h2>
+        
+        <p class="navigation__sub__columns__description caption">Connecting with the broader research community through events is essential for creating progress in every aspect of our work.</p>
+        
+            <a href="https://research.google/conferences-and-events/" class="glue-inline-link js-drawer-link" tabindex="-1">
+                <span class="sr-text">Learn more about our Conferences &amp; events</span>
+                <span aria-hidden="true">Learn more</span>
+            </a>
+        
+    </div>
+    <div class="navigation__sub__columns__mobile">
+        
+            <a class="glue-header__link" href="https://research.google/conferences-and-events/">
+                Conferences &amp; events
+            </a>
+        
+    </div>
+</li>
+
+            
+        </ul>
+
+        
+            <div class="navigation__sub__cta">
+                <a class="glue-button glue-button--high-emphasis js-drawer-link" href="https://research.google/programs-and-events/" target="_blank" rel="noreferrer noopener" tabindex="-1">
+                    Collaborate with us
+                </a>
+            </div>
+        
+    </div>
+</div>
+</div>
+        </div>
+      </div>
+    
+  </li>
+
+
+            
+              
+
+
+
+  
+  
+  <li class="glue-header__item  " data-gt-primary="Careers">
+  
+    <a class="glue-header__link " href="https://research.google/careers/">
+    
+      <span class="">
+        Careers
+        
+      </span>
+    
+    </a>
+    
+    
+  </li>
+
+
+            
+              
+
+
+
+  
+  
+  <li class="glue-header__item  " data-gt-primary="Blog">
+  
+    <a class="glue-header__link " href="https://research.google/blog/">
+    
+      <span class="">
+        Blog
+        
+      </span>
+    
+    </a>
+    
+    
+  </li>
+
+
+            
+          </ul>
+        </nav>
+      </div>
+      <!-- search (hide on search page) -->
+      
+      
+      <div class="glue-header__search js-header-search">
+        <div class="glue-header__search__input">
+          
+
+
+
+
+
+
+
+
+<div class="search-input " data-type="header">
+  <input type="search" class="caption --empty-search js-search-bar js-gt-search-input" placeholder="Search">
+  <button class="search-input__button --search js-gt-search-btn">
+    
+
+
+
+  
+
+<svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--18px ">
+  <use href="/gr/static/assets/icons/glue-icons.svg#search"></use>
+</svg>
+
+  </button>
+  <button class="search-input__button --clear">
+    
+
+
+
+  
+
+<svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--18px ">
+  <use href="/gr/static/assets/icons/glue-icons.svg#close"></use>
+</svg>
+
+  </button>
+</div>
+
+        </div>
+        <button class="glue-header__search__btn js-header-search-btn">
+          
+
+
+
+  
+
+<svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--24px search">
+  <use href="/gr/static/assets/icons/glue-icons.svg#search"></use>
+</svg>
+
+          
+
+
+
+  
+
+<svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--24px close">
+  <use href="/gr/static/assets/icons/glue-icons.svg#close"></use>
+</svg>
+
+          <span class="sr-text js-header-search-sr-text">Search</span>
+        </button>
+      </div>
+      
+    </div>
+  </div>
+  <div class="glue-header__drawer-backdrop">
+    <div class="glue-header__mobile_close">
+      <button class="glue-header__drawer-toggle-btn js-mobile-nav-close" aria-label="Close the navigation drawer">
+        <svg class="glue-icon glue-icon--24px" role="presentation" aria-hidden="true">
+          <use href="/gr/static/assets/icons/glue-icons.svg#close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+    
+
+    <main id="page-content">
+        
+            <div class="completely-hidden" data-blog-publish-date="20250403" data-blog-word-count="1429"></div>
+        
+        
+<div class="blog-detail-page ">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="basic-hero bhoig --theme-dark  --large-image" data-gt-id="basic_hero" data-gt-component-name="">
+  <div class="glue-page">
+    <div class="glue-grid">
+      <div class="bhoig__image-wrapper glue-grid__col--span-4 glue-grid__col--span-5-md glue-grid__col--span-4-lg">
+      
+        
+        
+          
+            <div class="bhoig__image-bg" style="">
+              
+                <picture>
+                  <img src="./Evaluating progress of LLMs on scientific problem-solving_files/curie-1.png" alt="" class="">
+                </picture>
+              
+            </div>
+        
+      
+    </div>
+
+        
+        <div class="bhoig__breadcrumb-wrapper glue-grid__col--span-10 glue-grid__col--span-9-md glue-grid__col--span-10-lg">
+          
+
+
+
+
+<nav class="glue-breadcrumbs" aria-label="Breadcrumbs">
+    
+    <ol class="glue-breadcrumbs__list">
+        
+        
+        
+        
+        <li class="glue-breadcrumbs__item">
+            <a class="glue-breadcrumbs__link attribution" href="https://research.google/">Home</a>
+            
+
+
+
+  
+
+<svg role="presentation" aria-hidden="true" class="glue-icon  ">
+  <use href="/gr/static/assets/icons/glue-icons.svg#chevron-right"></use>
+</svg>
+
+        </li>
+        
+        
+        
+        <li class="glue-breadcrumbs__item">
+            <a class="glue-breadcrumbs__link attribution" href="https://research.google/blog/">Blog</a>
+            
+
+
+
+  
+
+<svg role="presentation" aria-hidden="true" class="glue-icon  ">
+  <use href="/gr/static/assets/icons/glue-icons.svg#chevron-right"></use>
+</svg>
+
+        </li>
+        
+        
+    </ol>
+    
+</nav>
+        </div>
+
+        <h1 class="headline-1 bhoig__headline glue-grid__col--span-8 glue-grid__col--span-7-md glue-grid__col--span-8-lg">Evaluating progress of LLMs on scientific problem-solving</h1>
+
+        
+
+          <div class="basic-hero__description bhoig__description glue-grid__col--span-8 glue-grid__col--span-7-md glue-grid__col--span-8-lg">
+            <div class="basic-hero--blog-detail__description"><p>April 3, 2025</p><span class="dot-separator"></span><p>Subhashini Venugopalan, Research Scientist, Google Research</p></div>
+          </div>
+
+        
+
+        <div class="bhoig__cta glue-grid__col--span-8 glue-grid__col--span-7-md glue-grid__col--span-8-lg">
+          
+        </div>
+    </div>
+  </div>
+</section>
+
+
+    <div class="glue-page">
+        <div class="glue-grid blog-detail-page__grid">
+            <div class="glue-grid__col glue-grid__col--span-4-sm glue-grid__col--span-12-md  glue-grid__col--span-9-lg">
+                
+                    <section class="blog-summary" data-gt-id="blog_summary" data-gt-component-name="Blog Summary">
+                        
+                        
+
+<div class="blog-summary__update-wrapper">
+    
+</div>
+
+<div class="blog-summary__summary">
+    <p data-block-key="jrycc">We introduce CURIE, a scientific long-Context Understanding, Reasoning and Information Extraction benchmark to measure the potential of large language models in scientific problem-solving and assisting scientists in realistic workflows.</p>
+</div>
+                        
+                    </section>
+                
+                
+                <div class="quicklinks-wrapper--mobile">
+                    <div class="block-quick_links">
+
+
+<section class="quicklinks">
+    
+        <h2 class="eyebrow">Quick links</h2>
+        <ul class="quicklinks__list">
+            
+            
+            
+                <li class="quicklinks__item">
+                    <a class="not-glue quicklinks__item__link" href="https://arxiv.org/abs/2503.13517">
+                        <span class="icon icon--link"></span>
+                        <span class="quicklinks__item__text">CURIE Paper</span>
+                    </a>
+                </li>
+            
+            
+                <li class="quicklinks__item">
+                    <a class="not-glue quicklinks__item__link" href="https://neurips.cc/virtual/2024/poster/97575">
+                        <span class="icon icon--link"></span>
+                        <span class="quicklinks__item__text">SPIQA Paper</span>
+                    </a>
+                </li>
+            
+            
+                <li class="quicklinks__item">
+                    <a class="not-glue quicklinks__item__link" href="https://neurips.cc/virtual/2024/98540">
+                        <span class="icon icon--link"></span>
+                        <span class="quicklinks__item__text">FEABench Paper</span>
+                    </a>
+                </li>
+            
+            
+            
+            <li class="quicklinks__item quicklinks__item--share js-quicklinks-share">
+                <button class="quicklinks__share-button js-quicklinks-share__button" aria-expanded="false" aria-controls="js-quicklinks-share__list">
+                    <span class="icon icon--share"></span>
+                    <span class="quicklinks__item__text">Share</span>
+                </button>
+                
+
+
+
+<section class="glue-social glue-social--monochrome quicklinks__share-list js-quicklinks-share__list glue-elevation-level-1 js-gt-share-wrapper">
+  <div class="glue-social__group">
+    <ul class="glue-social__list" role="list">
+
+      <li class="glue-social__item">
+        <a class="glue-social__link" href="https://twitter.com/intent/tweet?text=https%3A//research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/" title="Share on Twitter" target="_blank" rel="noopener" data-gt-method="x">
+            <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--24px">
+              <use href="/gr/static/assets/icons/twitter-x.svg#twitter-x"></use>
+          </svg>
+        </a>
+      </li>
+      <li class="glue-social__item">
+        <a class="glue-social__link" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/" title="Share on Facebook" target="_blank" rel="noopener" data-gt-method="facebook">
+          <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--color-facebook glue-icon--24px">
+            <use href="/gr/static/assets/icons/facebook.svg#facebook"></use>
+          </svg>
+        </a>
+      </li>
+      <li class="glue-social__item">
+        <a class="glue-social__link" href="https://www.linkedin.com/shareArticle?url=https%3A//research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/&amp;mini=true" title="Share on LinkedIn" target="_blank" rel="noopener" data-gt-method="linkedin">
+          <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--color-linkedin glue-icon--24px">
+            <use href="/gr/static/assets/icons/glue-icons.svg#post-linkedin"></use>
+          </svg>
+        </a>
+      </li>
+      <li class="glue-social__item">
+        <a class="glue-social__link" href="mailto:name@example.com?subject=Check%20out%20this%20site&amp;body=Check%20out%20https%3A//research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/" title="Send via Email" data-gt-method="email">
+          <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--color-sharemail glue-icon--24px">
+            <use href="/gr/static/assets/icons/glue-icons.svg#email"></use>
+          </svg>
+        </a>
+      </li>
+      <li class="glue-social__item">
+        <div class="glue-social__popover glue-popover" data-glue-popover-trigger="click">
+          <div class="glue-social__icon-trigger glue-popover__trigger" aria-label="Get shareable link" title="Get shareable link" id="share-static-popover-trigger" role="button" tabindex="0" aria-expanded="false" aria-controls="share-popover-dialog">
+            <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--color-sharelink glue-icon--24px">
+              <use href="/gr/static/assets/icons/glue-icons.svg#link"></use>
+            </svg>
+          </div>
+
+          <div class="glue-social__dialog glue-popover__dialog" id="share-popover-dialog" role="dialog" tabindex="-1" aria-hidden="true">
+            <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--color-sharelink glue-icon--24px">
+              <use href="/public/icons/glue-icons.svg#link"></use>
+            </svg>
+            <div class="glue-social__copy glue-copy" glue-copy-success="Copied to clipboard" glue-copy-fail="Press Ctrl+C or ⌘+C to copy">
+              <input class="glue-social__copy-input glue-copy-value" readonly="" type="text" value="https://research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/" aria-label="URL">
+              <button class="glue-social__copy-btn glue-copy-button" id="share-copy-btn" data-gt-method="link-copied" aria-live="polite">Copy link</button>
+            </div>
+            <div aria-label="Close" class="glue-social__close-btn glue-popover__close-btn" role="button" tabindex="0">
+              ×
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+            </li>
+            
+        </ul>
+    
+</section>
+</div>
+                </div>
+
+                <div class="blog-detail-wrapper js-gt-blog-detail-wrapper" data-gt-publish-date="20250403">
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  <div class="rich-text --theme-light --mode-standalone" data-gt-id="rich_text" data-gt-component-name="">
+    
+
+
+
+
+    <p data-block-key="5mvzb">The advancement of science relies on the ability to build upon the collective knowledge accumulated in scientific literature, requiring not only deep domain expertise and reasoning skills, but also the capacity to apply that knowledge within the context of a given problem. Large language models (LLMs) have already shown remarkable breadth of knowledge across a wide <a href="https://blog.google/technology/google-deepmind/google-gemini-ai-update-december-2024/#gemini-2-0-flash" target="_blank" rel="noopener noreferrer">spectrum of domains</a>, including <a href="https://arxiv.org/abs/1905.07830" target="_blank" rel="noopener noreferrer">commonsense reasoning</a>, <a href="https://arxiv.org/abs/2406.01574" target="_blank" rel="noopener noreferrer">language understanding</a>, <a href="https://www.swebench.com/" target="_blank" rel="noopener noreferrer">coding</a>, <a href="https://arxiv.org/abs/2103.03874" target="_blank" rel="noopener noreferrer">math</a> and <a href="https://arxiv.org/abs/2311.12022" target="_blank" rel="noopener noreferrer">scientific question-answering</a>. As LLMs transition from merely surfacing knowledge to <a href="https://openai.com/index/learning-to-reason-with-llms/" target="_blank" rel="noopener noreferrer">reasoning</a> and actively <a href="https://deepmind.google/technologies/gemini/flash-thinking/" target="_blank" rel="noopener noreferrer">solving problems</a>, their application to scientific endeavors holds immense potential, promising to revolutionize how research is <a href="https://www.nature.com/articles/d41586-024-02942-0" target="_blank" rel="noopener noreferrer">conducted</a> and <a href="https://www.nature.com/articles/d41586-023-01273-w" target="_blank" rel="noopener noreferrer">understood</a>.</p><p data-block-key="bnhsh">Realizing this potential will require rigorous evaluation of LLMs' capabilities in handling the complexities inherent in scientific tasks. It will be necessary to measure models’ capacity to understand and reason about long-form, context-rich scientific information, including multimodal content in figures and tables, and, crucially, to understand the reasoning processes models use to select the appropriate tools to solve the problems at hand. However, current LLM benchmarks on <a href="https://arxiv.org/abs/2311.12022" target="_blank" rel="noopener noreferrer">science</a> are often focused on short form questions and multiple choice responses, testing primarily the recollection of knowledge and to a lesser extent, the ability to reason.</p><p data-block-key="90itg">To address this gap, we propose several new benchmarks and datasets to measure the ability of LLMs in seeking information and solving problems where additional context is available. Our paper, “<a href="https://arxiv.org/abs/2503.13517" target="_blank" rel="noopener noreferrer">CURIE: Evaluating LLMs on Multitask Scientific Long-Context Understanding and Reasoning</a>”, set to appear at <a href="https://iclr.cc/Conferences/2025" target="_blank" rel="noopener noreferrer">ICLR 2025</a>, focuses on tasks in six scientific disciplines that test long-context understanding, reasoning, information extraction and aggregation capabilities. In a similar vein, at <a href="https://neurips.cc/Conferences/2024" target="_blank" rel="noopener noreferrer">NeurIPS 2024</a>, we introduced “<a href="https://neurips.cc/virtual/2024/poster/97575" target="_blank" rel="noopener noreferrer">SPIQA: A Dataset for Multimodal Question Answering on Scientific Papers</a>”, which evaluated the ability of LLMs to ground their responses to queries in figures and tables from scientific papers. Alongside this dataset, we also created a benchmark test set and evaluated multimodal LLMs on the task. Additionally, at the MATH-AI workshop at NeurIPS 2024, we shared “<a href="https://neurips.cc/virtual/2024/98540" target="_blank" rel="noopener noreferrer">FEABench: Evaluating Language Models on Multiphysics Reasoning Ability</a>” in which we proposed a task to measure the ability of LLM agents to simulate, reason, and solve physics, mathematics and engineering problems using finite element analysis (FEA) software.</p>
+</div>
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  <div class="rich-text --theme-light --mode-standalone" data-gt-id="rich_text" data-gt-component-name="">
+    
+
+
+    <div class="component-intro ">
+        
+            
+                <h2 class="">CURIE, a multitask benchmark for scientific reasoning</h2>
+            
+        
+        
+    </div>
+
+
+
+    <p data-block-key="5mvzb">CURIE is designed to evaluate LLMs on scientific problem solving across six disciplines: materials science, condensed matter physics, quantum computing, geospatial analysis, biodiversity, and proteins. It includes ten challenging tasks that require domain expertise, comprehension of long-context information, and multi-step reasoning. The tasks in CURIE cover a range of scientific workflows, including information extraction, reasoning, concept tracking, aggregation, algebraic manipulation, multimodal understanding, and cross-domain expertise, all performed within the context of full-length scientific papers. By requiring LLMs to be adept at such realistic tasks, CURIE aims to measure their potential in assisting scientists in their daily workflows.</p>
+</div>
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  
+
+
+
+
+
+  <div class="
+      dynamic_media
+      glue-grid__col
+      glue-grid__col--span-4-sm
+      glue-grid__col--span-12-md
+      glue-grid__col--span-12-lg
+      --
+      
+        --flex
+        --center
+      
+    " data-gt-id="dynamic_media" data-gt-component-name="">
+  
+
+
+
+    <div class="glue-grid
+      
+        --remove-gap
+        --medium
+      ">
+      
+          <div class="
+            dynamic_media__item
+            glue-grid__col
+            glue-grid__col--span-4-sm
+            
+                glue-grid__col--span-12-md
+            
+            
+                glue-grid__col--span-12-lg
+            
+          ">
+            <div class="">
+              
+
+
+    
+        
+
+
+
+
+
+    <!-- Determine the appropriate width based on image_width -->
+    
+        
+    
+
+
+<!-- For mobile images, use a default width -->
+
+
+<picture class="media__image media__image">
+    
+    
+        <source media="(min-width: 768px)" srcset="https://storage.googleapis.com/gweb-research2023-media/images/curie-1.width-1250.png" alt="curie-1">
+    
+    <img src="./Evaluating progress of LLMs on scientific problem-solving_files/curie-1.width-1250.png" alt="curie-1" loading="lazy">
+    
+</picture>
+    
+
+
+            </div>
+          </div>
+      
+      
+      <div class="glue-grid__col glue-grid__col--span-4-sm  glue-grid__col--span-12-md caption --center">
+        <p data-block-key="j5ipe"><i>The CURIE benchmark encompasses 10 tasks, with a total of 580 input and solution pairs based on 429 research documents across six diverse scientific disciplines: materials science, theoretical condensed matter physics, quantum computing, geospatial analysis, biodiversity, and proteins – covering both experimental and theoretical aspects of scientific research.</i></p>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  
+
+
+
+
+
+  <div class="
+      dynamic_media
+      glue-grid__col
+      glue-grid__col--span-4-sm
+      glue-grid__col--span-12-md
+      glue-grid__col--span-12-lg
+      --
+      
+        --flex
+        --center
+      
+    " data-gt-id="dynamic_media" data-gt-component-name="">
+  
+
+
+
+    <div class="glue-grid
+      
+        --remove-gap
+        --full
+      ">
+      
+          <div class="
+            dynamic_media__item
+            glue-grid__col
+            glue-grid__col--span-4-sm
+            
+                glue-grid__col--span-12-md
+            
+            
+                glue-grid__col--span-12-lg
+            
+          ">
+            <div class="">
+              
+
+
+    
+        
+
+
+
+
+
+    <!-- Determine the appropriate width based on image_width -->
+    
+        
+    
+
+
+<!-- For mobile images, use a default width -->
+
+
+<picture class="media__image media__image">
+    
+    
+        <source media="(min-width: 768px)" srcset="https://storage.googleapis.com/gweb-research2023-media/images/curie-2.width-1250.png" alt="curie-2">
+    
+    <img src="./Evaluating progress of LLMs on scientific problem-solving_files/curie-2.width-1250.png" alt="curie-2" loading="lazy">
+    
+</picture>
+    
+
+
+            </div>
+          </div>
+      
+      
+      <div class="glue-grid__col glue-grid__col--span-4-sm  glue-grid__col--span-12-md caption --center">
+        <p data-block-key="j5ipe"><b><i>Left:</i></b><i> The average length of the input queries in CURIE is about 15k words.</i> <b><i>Right:</i></b><i> The ground truth responses contain on average 954 words.</i></p>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  <div class="rich-text --theme-light --mode-standalone" data-gt-id="rich_text" data-gt-component-name="">
+    
+
+
+
+
+    <p data-block-key="5mvzb">Domain experts played a vital role in every phase of the benchmark development. First, they helped define and identify tasks that accurately represent real-world scientific workflows and helped source relevant research papers from their domains. They then assisted in creating detailed ground truth answers, prioritizing accuracy, nuance, and comprehensiveness. Finally, they quantified task difficulty by rating each example based on key features. We then selected evaluation metrics and confirmed their correlation with the experts' subjective assessments of model responses compared to the ground truth answers. The table below gives an overview of the specific tasks the benchmark encompasses.</p>
+</div>
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  
+
+
+
+
+
+  <div class="
+      dynamic_media
+      glue-grid__col
+      glue-grid__col--span-4-sm
+      glue-grid__col--span-12-md
+      glue-grid__col--span-12-lg
+      --
+      
+        --flex
+        --center
+      
+    " data-gt-id="dynamic_media" data-gt-component-name="">
+  
+
+
+
+    <div class="glue-grid
+      
+        --remove-gap
+        --full
+      ">
+      
+          <div class="
+            dynamic_media__item
+            glue-grid__col
+            glue-grid__col--span-4-sm
+            
+                glue-grid__col--span-12-md
+            
+            
+                glue-grid__col--span-12-lg
+            
+          ">
+            <div class="">
+              
+
+
+    
+        
+
+
+
+
+
+    <!-- Determine the appropriate width based on image_width -->
+    
+        
+    
+
+
+<!-- For mobile images, use a default width -->
+
+
+<picture class="media__image media__image">
+    
+    
+        <source media="(min-width: 768px)" srcset="https://storage.googleapis.com/gweb-research2023-media/images/curie-3.width-1250.png" alt="curie-3">
+    
+    <img src="./Evaluating progress of LLMs on scientific problem-solving_files/curie-3.width-1250.png" alt="curie-3" loading="lazy">
+    
+</picture>
+    
+
+
+            </div>
+          </div>
+      
+      
+      <div class="glue-grid__col glue-grid__col--span-4-sm  glue-grid__col--span-12-md caption --center">
+        <p data-block-key="j5ipe"><i>Brief description of the tasks in CURIE that models are to perform when given the context of a single research document (often a full-length paper). Also shown are the capabilities measured and the evaluation metrics.</i></p>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  <div class="rich-text --theme-light --mode-standalone" data-gt-id="rich_text" data-gt-component-name="">
+    
+
+
+    <div class="component-intro ">
+        
+            
+                <h3 class="">Programmatic and model-based evaluations</h3>
+            
+        
+        
+    </div>
+
+
+
+    <p data-block-key="5mvzb">Tasks in CURIE are varied and have ground-truth annotations in mixed and heterogeneous form, e.g., as JSONs, latex equations, YAML files, or free-form text. Evaluating free-form generation is challenging because answers are often descriptive, and even when a format is specified, as in most of our cases, the response to each field can have differing forms. For example, materials grid points may sometimes be specified as “[<i>p</i>, <i>q</i>, <i>r</i>]” and at other times as “<i>p</i> × <i>q</i> × <i>r”</i>. Hence, in addition to the programmatic evaluation metrics, such as <a href="https://en.wikipedia.org/wiki/ROUGE_(metric)" target="_blank" rel="noopener noreferrer">ROUGE-L</a>, <a href="https://en.wikipedia.org/wiki/Jaccard_index" target="_blank" rel="noopener noreferrer">intersection-over-inion</a> (used for BIOGR), and <a href="https://www.rcsb.org/docs/search-and-browse/advanced-search/sequence-similarity-search" target="_blank" rel="noopener noreferrer">identity ratio</a> (used in PDB), we propose two model-based evaluation metrics.</p><p data-block-key="c8908">(1) LMScore: Prompts an LLM asking how closely the predictions match ground truth on a 3-point scale: “good” if the prediction has few minor errors, “okay” if there are many minor errors, and “bad” if there are major errors. We consider the weighted average of the log-likelihood scores of the tokens to produce a final confidence.</p><p data-block-key="e172v">(2) LLMSim: Is used for retrieval tasks where we ask the model to exhaustively extract many details, e.g., descriptors, properties and values of materials from a research document, and provide as output an unordered list of dictionaries or records. We use a chain-of-thought (CoT) prompt that asks the LLM to look at each ground-truth record and identify the predicted records that correctly match each field (key) and value of the ground truth. Once we match the ground-truth records with predicted records, we can then measure precision and recall for the retrieval task, and compute the <a href="https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Mean_average_precision" target="_blank" rel="noopener noreferrer">mean average precision</a>, <a href="https://en.wikipedia.org/wiki/Evaluation_measures_(information_retrieval)#Recall" target="_blank" rel="noopener noreferrer">recall</a> and <a href="https://en.wikipedia.org/wiki/F-score" target="_blank" rel="noopener noreferrer">F1 scores</a> across all documents.</p>
+</div>
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  
+
+
+
+
+
+  <div class="
+      dynamic_media
+      glue-grid__col
+      glue-grid__col--span-4-sm
+      glue-grid__col--span-12-md
+      glue-grid__col--span-12-lg
+      --
+      
+        --flex
+        --center
+      
+    " data-gt-id="dynamic_media" data-gt-component-name="">
+  
+
+
+
+    <div class="glue-grid
+      
+        --remove-gap
+        --full
+      ">
+      
+          <div class="
+            dynamic_media__item
+            glue-grid__col
+            glue-grid__col--span-4-sm
+            
+                glue-grid__col--span-12-md
+            
+            
+                glue-grid__col--span-12-lg
+            
+          ">
+            <div class="">
+              
+
+
+    
+        
+
+
+
+
+
+    <!-- Determine the appropriate width based on image_width -->
+    
+        
+    
+
+
+<!-- For mobile images, use a default width -->
+
+
+<picture class="media__image media__image">
+    
+    
+        <source media="(min-width: 768px)" srcset="https://storage.googleapis.com/gweb-research2023-media/images/curie-4.width-1250.png" alt="curie-4">
+    
+    <img src="./Evaluating progress of LLMs on scientific problem-solving_files/curie-4.width-1250.png" alt="curie-4" loading="lazy">
+    
+</picture>
+    
+
+
+            </div>
+          </div>
+      
+      
+      <div class="glue-grid__col glue-grid__col--span-4-sm  glue-grid__col--span-12-md caption --center">
+        <p data-block-key="j5ipe"><i>Per task normalized scores of various LLMs on the CURIE benchmark to measure performance on 10 long-context tasks (see table above) requiring expertise across six scientific disciplines. Higher is better.</i></p>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  
+
+
+
+
+
+  <div class="
+      dynamic_media
+      glue-grid__col
+      glue-grid__col--span-4-sm
+      glue-grid__col--span-12-md
+      glue-grid__col--span-12-lg
+      --
+      
+        --flex
+        --center
+      
+    " data-gt-id="dynamic_media" data-gt-component-name="">
+  
+
+
+
+    <div class="glue-grid
+      
+        --remove-gap
+        --medium
+      ">
+      
+          <div class="
+            dynamic_media__item
+            glue-grid__col
+            glue-grid__col--span-4-sm
+            
+                glue-grid__col--span-12-md
+            
+            
+                glue-grid__col--span-12-lg
+            
+          ">
+            <div class="">
+              
+
+
+    
+        
+
+
+
+
+
+    <!-- Determine the appropriate width based on image_width -->
+    
+        
+    
+
+
+<!-- For mobile images, use a default width -->
+
+
+<picture class="media__image media__image">
+    
+    
+        <source media="(min-width: 768px)" srcset="https://storage.googleapis.com/gweb-research2023-media/images/curie-5.width-1250.png" alt="curie-5">
+    
+    <img src="./Evaluating progress of LLMs on scientific problem-solving_files/curie-5.width-1250.png" alt="curie-5" loading="lazy">
+    
+</picture>
+    
+
+
+            </div>
+          </div>
+      
+      
+      <div class="glue-grid__col glue-grid__col--span-4-sm  glue-grid__col--span-12-md caption --center">
+        <p data-block-key="j5ipe"><i>Average normalized performance of long-context LLMs across the 10 tasks from six scientific domains in CURIE.</i></p>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  <div class="rich-text --theme-light --mode-standalone" data-gt-id="rich_text" data-gt-component-name="">
+    
+
+
+
+
+    <p data-block-key="5mvzb">We evaluated popular long-context closed- and open-weight models on CURIE and found that there is substantial room for improvement across all models and tasks, in particular on DFT, MPV and GEO tasks that require exhaustive retrieval of multiple values and aggregation. The paper includes detailed analysis of the results from experts. Of note is that experts found model responses promising, particularly in extracting details from a scientific paper, grouping them appropriately, and generating responses in a desired format. Overall, improving the effectiveness of LLMs on such tasks will augment and accelerate scientists in their workflows.</p>
+</div>
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  <div class="rich-text --theme-light --mode-standalone" data-gt-id="rich_text" data-gt-component-name="">
+    
+
+
+    <div class="component-intro ">
+        
+            
+                <h2 class="">SPIQA: A dataset for multimodal question answering on scientific papers</h2>
+            
+        
+        
+    </div>
+
+
+
+    <p data-block-key="5mvzb">While CURIE evaluates scientific reasoning over long texts in different domains, comprehending multimodal content in scientific articles presents additional challenges. Often, key insights, motivation, and a simplified overview of the scientific methods are presented in meticulously crafted figures and tables. Thus, to independently evaluate the ability of LLMs to simultaneously reason over multiple figures and associated text in a scientific article, we introduce the Scientific Paper Image Question Answering (SPIQA) dataset and benchmark. Using SPIQA, we test both the multimodal and long-context capabilities of LLMs.</p>
+</div>
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  
+
+
+
+
+
+  <div class="
+      dynamic_media
+      glue-grid__col
+      glue-grid__col--span-4-sm
+      glue-grid__col--span-12-md
+      glue-grid__col--span-12-lg
+      --
+      
+        --flex
+        --center
+      
+    " data-gt-id="dynamic_media" data-gt-component-name="">
+  
+
+
+
+    <div class="glue-grid
+      
+        --remove-gap
+        --full
+      ">
+      
+          <div class="
+            dynamic_media__item
+            glue-grid__col
+            glue-grid__col--span-4-sm
+            
+                glue-grid__col--span-12-md
+            
+            
+                glue-grid__col--span-12-lg
+            
+          ">
+            <div class="">
+              
+
+
+    
+        
+
+
+
+
+
+    <!-- Determine the appropriate width based on image_width -->
+    
+        
+    
+
+
+<!-- For mobile images, use a default width -->
+
+
+<picture class="media__image media__image">
+    
+    
+        <source media="(min-width: 768px)" srcset="https://storage.googleapis.com/gweb-research2023-media/images/curie-6.width-1250.png" alt="curie-6">
+    
+    <img src="./Evaluating progress of LLMs on scientific problem-solving_files/curie-6.width-1250.png" alt="curie-6" loading="lazy">
+    
+</picture>
+    
+
+
+            </div>
+          </div>
+      
+      
+      <div class="glue-grid__col glue-grid__col--span-4-sm  glue-grid__col--span-12-md caption --center">
+        <p data-block-key="j5ipe"><i>Given a question anchored in a figure or table from a research paper, we evaluate the capabilities of multimodal LLMs in comprehending information in multiple figures, tables, and the paper text to ground its responses in the right figure or table.</i></p>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  <div class="rich-text --theme-light --mode-standalone" data-gt-id="rich_text" data-gt-component-name="">
+    
+
+
+
+
+    <p data-block-key="5mvzb">In SPIQA, we leverage the breadth of expertise and ability of multimodal LLMs to understand individual figures and tables to curate a large dataset of 270k question and answer pairs. The questions involve multiple images covering plots, charts, tables, schematic diagrams, and result visualizations.</p>
+</div>
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  
+
+
+
+
+
+  <div class="
+      dynamic_media
+      glue-grid__col
+      glue-grid__col--span-4-sm
+      glue-grid__col--span-12-md
+      glue-grid__col--span-12-lg
+      --
+      
+        --flex
+        --center
+      
+    " data-gt-id="dynamic_media" data-gt-component-name="">
+  
+
+
+
+    <div class="glue-grid
+      
+        --remove-gap
+        --full
+      ">
+      
+          <div class="
+            dynamic_media__item
+            glue-grid__col
+            glue-grid__col--span-4-sm
+            
+                glue-grid__col--span-12-md
+            
+            
+                glue-grid__col--span-12-lg
+            
+          ">
+            <div class="">
+              
+
+
+    
+        
+
+
+
+
+
+    <!-- Determine the appropriate width based on image_width -->
+    
+        
+    
+
+
+<!-- For mobile images, use a default width -->
+
+
+<picture class="media__image media__image">
+    
+    
+        <source media="(min-width: 768px)" srcset="https://storage.googleapis.com/gweb-research2023-media/images/curie-7.width-1250.png" alt="curie-7">
+    
+    <img src="./Evaluating progress of LLMs on scientific problem-solving_files/curie-7.width-1250.png" alt="curie-7" loading="lazy">
+    
+</picture>
+    
+
+
+            </div>
+          </div>
+      
+      
+      <div class="glue-grid__col glue-grid__col--span-4-sm  glue-grid__col--span-12-md caption --center">
+        <p data-block-key="j5ipe"><i>Distribution of the sub-domains of the ~25k computer science papers on which the SPIQA dataset is curated. SPIQA consists of 270,194 question and answer pairs on 152k figures and 117k tables where the answer to each query is grounded in a figure or a table.</i></p>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  <div class="rich-text --theme-light --mode-standalone" data-gt-id="rich_text" data-gt-component-name="">
+    
+
+
+
+
+    <p data-block-key="5mvzb">Through extensive experiments we evaluate 12 prominent foundational models on the task of grounding responses in images of a scientific paper. Additionally, we show significant performance gains by fine-tuning two open-source systems (<a href="https://llava-vl.github.io/" target="_blank" rel="noopener noreferrer">LLaVA</a> and <a href="https://arxiv.org/abs/2305.06500" target="_blank" rel="noopener noreferrer">InstructBLIP</a>) on the SPIQA training set, which reveals promising avenues for improving open source multimodal LLMs on scientific image understanding and reasoning.</p>
+</div>
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  <div class="rich-text --theme-light --mode-standalone" data-gt-id="rich_text" data-gt-component-name="">
+    
+
+
+    <p data-block-key="5mvzb">Yet another essential requirement in engineering and science is building precise simulations of the real world and invoking software tools to answer quantitative problems. With <a href="https://neurips.cc/virtual/2024/98540" target="_blank" rel="noopener noreferrer">FEABench</a>, we investigate the ability of LLMs to solve engineering modeling problems end-to-end by reasoning over natural language problem descriptions and operating <a href="https://en.wikipedia.org/wiki/COMSOL_Multiphysics" target="_blank" rel="noopener noreferrer">COMSOL Multiphysics</a>®, a <a href="https://en.wikipedia.org/wiki/Finite_element_method" target="_blank" rel="noopener noreferrer">finite element analysis</a> (FEA) software, to compute the answers. The benchmark consists of a set of 15 manually verified problems (FEABench Gold), as well as a larger set of algorithmically parsed problems, that could potentially be used to tune models. The problems in this benchmark prove to be challenging enough that the LLMs and agents we tested were not able to completely and correctly solve any problem.</p>
+</div>
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  
+
+
+
+
+
+  <div class="
+      dynamic_media
+      glue-grid__col
+      glue-grid__col--span-4-sm
+      glue-grid__col--span-12-md
+      glue-grid__col--span-12-lg
+      --
+      
+        --flex
+        --center
+      
+    " data-gt-id="dynamic_media" data-gt-component-name="">
+  
+
+
+
+    <div class="glue-grid
+      
+        --remove-gap
+        --full
+      ">
+      
+          <div class="
+            dynamic_media__item
+            glue-grid__col
+            glue-grid__col--span-4-sm
+            
+                glue-grid__col--span-12-md
+            
+            
+                glue-grid__col--span-12-lg
+            
+          ">
+            <div class="">
+              
+
+
+    
+        
+
+
+
+
+
+    <!-- Determine the appropriate width based on image_width -->
+    
+        
+    
+
+
+<!-- For mobile images, use a default width -->
+
+
+<picture class="media__image media__image">
+    
+    
+        <source media="(min-width: 768px)" srcset="https://storage.googleapis.com/gweb-research2023-media/images/curie-8.width-1250.png" alt="curie-8">
+    
+    <img src="./Evaluating progress of LLMs on scientific problem-solving_files/curie-8.width-1250.png" alt="curie-8" loading="lazy">
+    
+</picture>
+    
+
+
+            </div>
+          </div>
+      
+      
+      <div class="glue-grid__col glue-grid__col--span-4-sm  glue-grid__col--span-12-md caption --center">
+        <p data-block-key="j5ipe"><b><i>Left:</i></b><i> Illustrative example showing the specifications for a heat transfer problem in the dataset.</i> <b><i>Right:</i></b><i> Distribution of FEABench Gold problems by physics domain.</i></p>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  <div class="rich-text --theme-light --mode-standalone" data-gt-id="rich_text" data-gt-component-name="">
+    
+
+
+
+
+    <p data-block-key="5mvzb">Links to download the datasets and evaluation code for <a href="https://github.com/google/curie" target="_blank" rel="noopener noreferrer">CURIE</a>, <a href="https://github.com/google/spiqa" target="_blank" rel="noopener noreferrer">SPIQA</a>, and <a href="https://github.com/google/feabench" target="_blank" rel="noopener noreferrer">FEABench</a> are provided on GitHub along with an <a href="https://github.com/google-research/ecology-georeferencing" target="_blank" rel="noopener noreferrer">expanded version of the BIOGR (biodiversity) dataset</a>. These benchmarks represent a significant effort to create challenging and realistic evaluations for AI systems, focusing on long-context understanding, multimodal reasoning, and the integration of computational tools. We hope these encourage and support the community in developing more rigorous evaluations on scientific tasks, thereby facilitating the advancement of AI-assisted scientific discovery. Contributions to the GitHub repositories, especially those related to enhancing evaluation metrics, are welcomed.</p>
+</div>
+
+    </div>
+</section>
+
+                    
+                    
+    
+
+
+<section class="component-as-block --no-padding-top --theme-light --dbl-padding">
+    <div class="glue-page">
+        
+  <div class="rich-text --theme-light --mode-standalone" data-gt-id="rich_text" data-gt-component-name="">
+    
+
+
+
+
+    <p data-block-key="5mvzb">If you prefer using VS Code's integrated debugging:
+1. Open VS Code
+2. Open the blockchain folder
+3. Press Ctrl+Shift+D to open the Run and Debug view
+4. Select "Full Blockchain Stack" from the dropdown
+5. Click the green play button
+
+This will start both the Web3 server and workflow with full debugging capabilities, allowing you to set breakpoints and inspect variables.</p>
+</div>
+
+    </div>
+</section>
+
+                    
+                </div>
+
+                
+    
+
+
+<section aria-label="List of footnotes" data-gt-id="footnotes" data-gt-component-name="Footnotes">
+  <ol class="js-footnotes footnotes"></ol>
+</section>
+
+
+                
+<section class="blog-labels" data-gt-id="blog_labels" data-gt-component-name="Blog Labels">
+    <ul class="blog-labels__list">
+        <span class="caption">Labels:</span> 
+        
+        <li class="caption">
+            <a class="caption" href="https://research.google/blog/label/general-science">General Science</a>
+            
+            <div class="blog-labels__spacer"></div>
+            
+        </li>
+        
+        <li class="caption">
+            <a class="caption" href="https://research.google/blog/label/generative-ai">Generative AI</a>
+            
+            <div class="blog-labels__spacer"></div>
+            
+        </li>
+        
+        <li class="caption">
+            <a class="caption" href="https://research.google/blog/label/natural-language-processing">Natural Language Processing</a>
+            
+        </li>
+        
+    </ul>
+</section>
+
+            </div>
+            
+                <div class="glue-grid__col glue-grid__col--span-4-sm glue-grid__col--span-12-md glue-grid__col--span-3-lg">
+                    <div class="quicklinks-wrapper--desktop quicklinks-wrapper--sticky">
+                        <div class="block-quick_links">
+
+
+<section class="quicklinks">
+    
+        <h2 class="eyebrow">Quick links</h2>
+        <ul class="quicklinks__list">
+            
+            
+            
+                <li class="quicklinks__item">
+                    <a class="not-glue quicklinks__item__link" href="https://arxiv.org/abs/2503.13517">
+                        <span class="icon icon--link"></span>
+                        <span class="quicklinks__item__text">CURIE Paper</span>
+                    </a>
+                </li>
+            
+            
+                <li class="quicklinks__item">
+                    <a class="not-glue quicklinks__item__link" href="https://neurips.cc/virtual/2024/poster/97575">
+                        <span class="icon icon--link"></span>
+                        <span class="quicklinks__item__text">SPIQA Paper</span>
+                    </a>
+                </li>
+            
+            
+                <li class="quicklinks__item">
+                    <a class="not-glue quicklinks__item__link" href="https://neurips.cc/virtual/2024/98540">
+                        <span class="icon icon--link"></span>
+                        <span class="quicklinks__item__text">FEABench Paper</span>
+                    </a>
+                </li>
+            
+            
+            
+            <li class="quicklinks__item quicklinks__item--share js-quicklinks-share">
+                <button class="quicklinks__share-button js-quicklinks-share__button" aria-expanded="false" aria-controls="js-quicklinks-share__list">
+                    <span class="icon icon--share"></span>
+                    <span class="quicklinks__item__text">Share</span>
+                </button>
+                
+
+
+
+<section class="glue-social glue-social--monochrome quicklinks__share-list js-quicklinks-share__list glue-elevation-level-1 js-gt-share-wrapper">
+  <div class="glue-social__group">
+    <ul class="glue-social__list" role="list">
+
+      <li class="glue-social__item">
+        <a class="glue-social__link" href="https://twitter.com/intent/tweet?text=https%3A//research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/" title="Share on Twitter" target="_blank" rel="noopener" data-gt-method="x">
+            <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--24px">
+              <use href="/gr/static/assets/icons/twitter-x.svg#twitter-x"></use>
+          </svg>
+        </a>
+      </li>
+      <li class="glue-social__item">
+        <a class="glue-social__link" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/" title="Share on Facebook" target="_blank" rel="noopener" data-gt-method="facebook">
+          <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--color-facebook glue-icon--24px">
+            <use href="/gr/static/assets/icons/facebook.svg#facebook"></use>
+          </svg>
+        </a>
+      </li>
+      <li class="glue-social__item">
+        <a class="glue-social__link" href="https://www.linkedin.com/shareArticle?url=https%3A//research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/&amp;mini=true" title="Share on LinkedIn" target="_blank" rel="noopener" data-gt-method="linkedin">
+          <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--color-linkedin glue-icon--24px">
+            <use href="/gr/static/assets/icons/glue-icons.svg#post-linkedin"></use>
+          </svg>
+        </a>
+      </li>
+      <li class="glue-social__item">
+        <a class="glue-social__link" href="mailto:name@example.com?subject=Check%20out%20this%20site&amp;body=Check%20out%20https%3A//research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/" title="Send via Email" data-gt-method="email">
+          <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--color-sharemail glue-icon--24px">
+            <use href="/gr/static/assets/icons/glue-icons.svg#email"></use>
+          </svg>
+        </a>
+      </li>
+      <li class="glue-social__item">
+        <div class="glue-social__popover glue-popover" data-glue-popover-trigger="click">
+          <div class="glue-social__icon-trigger glue-popover__trigger" aria-label="Get shareable link" title="Get shareable link" id="share-static-popover-trigger" role="button" tabindex="0" aria-expanded="false" aria-controls="share-popover-dialog">
+            <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--color-sharelink glue-icon--24px">
+              <use href="/gr/static/assets/icons/glue-icons.svg#link"></use>
+            </svg>
+          </div>
+
+          <div class="glue-social__dialog glue-popover__dialog" id="share-popover-dialog" role="dialog" tabindex="-1" aria-hidden="true">
+            <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--color-sharelink glue-icon--24px">
+              <use href="/public/icons/glue-icons.svg#link"></use>
+            </svg>
+            <div class="glue-social__copy glue-copy" glue-copy-success="Copied to clipboard" glue-copy-fail="Press Ctrl+C or ⌘+C to copy">
+              <input class="glue-social__copy-input glue-copy-value" readonly="" type="text" value="https://research.google/blog/evaluating-progress-of-llms-on-scientific-problem-solving/" aria-label="URL">
+              <button class="glue-social__copy-btn glue-copy-button" id="share-copy-btn" data-gt-method="link-copied" aria-live="polite">Copy link</button>
+            </div>
+            <div aria-label="Close" class="glue-social__close-btn glue-popover__close-btn" role="button" tabindex="0">
+              ×
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+            </li>
+            
+        </ul>
+    
+</section>
+</div>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+    
+    
+
+<section class="related-posts offset-two-up --theme-dark" data-gt-id="related_blog_posts" data-gt-component-name="Related Blog Posts">
+    <div class="glue-page glue-grid">
+        <div class="offset-two-up__left-col glue-grid__col glue-grid__col--span-4-sm glue-grid__col--span-12-md glue-grid__col--span-3-lg">
+            <h3 class="offset-two-up__headline headline-3">Other posts of interest</h3>
+        </div>
+        <div class="glue-grid__col glue-grid__col--span-4-sm glue-grid__col--span-12-md glue-grid__col--span-9-lg">
+            <ul class="card-stack--basic nested-glue-grid-override">
+                
+                <li class="glue-grid__col glue-grid__col--span-4-md glue-grid__col--span-4-sm">
+                    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <a class="glue-card not-glue " href="https://research.google/blog/teaching-machines-the-language-of-biology-scaling-large-language-models-for-next-generation-single-cell-analysis/" aria-label="">
+
+        <div class="glue-card__inner">
+            
+    
+
+
+
+<div class="related-posts__image">
+    
+    
+    
+    <img src="./Evaluating progress of LLMs on scientific problem-solving_files/CellToSent1_HEROFinal.png" alt="">
+</div>
+
+
+
+            <div class="glue-card__content --no-media">
+  
+    <p class="glue-label glue-spacer-1-bottom">April 17, 2025</p>
+  
+
+  <span class="headline-5 js-gt-item-id">
+    Teaching machines the language of biology: Scaling large language models for next-generation single-cell analysis
+  </span>
+
+  
+</div>
+
+
+            
+    <ul class="glue-card__link-list">
+        
+            <li class="glue-card__link-list__item">
+                <span class="not-glue caption">
+                    Health &amp; Bioscience
+                    
+                    <span class="glue-card__link-list__spacer">·</span>
+                    
+                </span>
+            </li>
+        
+            <li class="glue-card__link-list__item">
+                <span class="not-glue caption">
+                    Natural Language Processing
+                    
+                </span>
+            </li>
+        
+    </ul>
+
+
+
+        
+            
+
+        
+        </div>
+
+    </a>
+
+
+
+                </li>
+                
+                <li class="glue-grid__col glue-grid__col--span-4-md glue-grid__col--span-4-sm">
+                    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <a class="glue-card not-glue " href="https://research.google/blog/geospatial-reasoning-unlocking-insights-with-generative-ai-and-multiple-foundation-models/" aria-label="">
+
+        <div class="glue-card__inner">
+            
+    
+
+
+
+<div class="related-posts__image">
+    
+    
+    
+    <img src="./Evaluating progress of LLMs on scientific problem-solving_files/GeospatialReasoning1_OverviewHERO.png" alt="">
+</div>
+
+
+
+            <div class="glue-card__content --no-media">
+  
+    <p class="glue-label glue-spacer-1-bottom">April 8, 2025</p>
+  
+
+  <span class="headline-5 js-gt-item-id">
+    Geospatial Reasoning: Unlocking insights with generative AI and multiple foundation models
+  </span>
+
+  
+</div>
+
+
+            
+    <ul class="glue-card__link-list">
+        
+            <li class="glue-card__link-list__item">
+                <span class="not-glue caption">
+                    Climate &amp; Sustainability
+                    
+                    <span class="glue-card__link-list__spacer">·</span>
+                    
+                </span>
+            </li>
+        
+            <li class="glue-card__link-list__item">
+                <span class="not-glue caption">
+                    Generative AI
+                    
+                    <span class="glue-card__link-list__spacer">·</span>
+                    
+                </span>
+            </li>
+        
+            <li class="glue-card__link-list__item">
+                <span class="not-glue caption">
+                    Machine Perception
+                    
+                </span>
+            </li>
+        
+    </ul>
+
+
+
+        
+            
+
+        
+        </div>
+
+    </a>
+
+
+
+                </li>
+                
+                <li class="glue-grid__col glue-grid__col--span-4-md glue-grid__col--span-4-sm">
+                    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <a class="glue-card not-glue " href="https://research.google/blog/eclektic-a-novel-benchmark-for-evaluating-cross-lingual-knowledge-transfer-in-llms/" aria-label="">
+
+        <div class="glue-card__inner">
+            
+    
+
+
+
+<div class="related-posts__image">
+    
+    
+    
+    <img src="./Evaluating progress of LLMs on scientific problem-solving_files/ECLEKTIC1_CreationHERO.png" alt="">
+</div>
+
+
+
+            <div class="glue-card__content --no-media">
+  
+    <p class="glue-label glue-spacer-1-bottom">April 2, 2025</p>
+  
+
+  <span class="headline-5 js-gt-item-id">
+    ECLeKTic: A novel benchmark for evaluating cross-lingual knowledge transfer in LLMs
+  </span>
+
+  
+</div>
+
+
+            
+    <ul class="glue-card__link-list">
+        
+            <li class="glue-card__link-list__item">
+                <span class="not-glue caption">
+                    Generative AI
+                    
+                    <span class="glue-card__link-list__spacer">·</span>
+                    
+                </span>
+            </li>
+        
+            <li class="glue-card__link-list__item">
+                <span class="not-glue caption">
+                    Natural Language Processing
+                    
+                </span>
+            </li>
+        
+    </ul>
+
+
+
+        
+            
+
+        
+        </div>
+
+    </a>
+
+
+
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</section>
+
+    
+</div>
+
+
+    </main>
+
+    
+
+<footer class="glue-footer">
+    
+    <div class="glue-page">
+        <section class="glue-social">
+            <div class="glue-social__group glue-social--monochrome">
+                <p class="glue-social__title glue-social__title--inline">
+                    Follow us
+                </p>
+                <nav class="js-gt-follow-us-wrapper" aria-label="Social media links">
+                    <ul class="glue-social__list" role="list">
+                        
+                        <li class="glue-social__item">
+                            <a class="glue-social__link" href="https://twitter.com/GoogleAI" title="Follow us on x" target="_blank" rel="noopener" data-gt-method="x" "="">
+                                <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--24px">
+                                    
+                                    <use href="/gr/static/assets/icons/twitter-x.svg#twitter-x"></use>
+                                    
+                                </svg>
+                            </a>
+                        </li>
+                        
+                        <li class="glue-social__item">
+                            <a class="glue-social__link" href="https://www.linkedin.com/showcase/googleresearch/" title="Follow us on linkedin" target="_blank" rel="noopener" data-gt-method="linkedin" "="">
+                                <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--24px">
+                                    
+                                    <use href="/gr/static/assets/icons/glue-icons.svg#post-linkedin"></use>
+                                    
+                                </svg>
+                            </a>
+                        </li>
+                        
+                        <li class="glue-social__item">
+                            <a class="glue-social__link" href="https://www.youtube.com/c/GoogleResearch" title="Follow us on youtube" target="_blank" rel="noopener" data-gt-method="youtube" "="">
+                                <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--24px">
+                                    
+                                    <use href="/gr/static/assets/icons/glue-icons.svg#video-youtube"></use>
+                                    
+                                </svg>
+                            </a>
+                        </li>
+                        
+                        <li class="glue-social__item">
+                            <a class="glue-social__link" href="https://github.com/google-research" title="Follow us on github" target="_blank" rel="noopener" data-gt-method="github" "="">
+                                <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--social glue-icon--24px">
+                                    
+                                    <use href="/gr/static/assets/icons/github.svg#github"></use>
+                                    
+                                </svg>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </div>
+    <div class="glue-fullbleed"></div>
+    
+    <section class="glue-page">
+        <nav class="glue-footer__global" aria-label="Footer resource links">
+            <div class="glue-footer__logo">
+                <a href="https://www.google.com/" title="Google" class="glue-footer__link">
+                    
+
+
+
+  
+
+<svg role="presentation" aria-hidden="true" class="glue-icon  glue-footer__logo-img">
+  <use href="/gr/static/assets/icons/glue-icons.svg#google-solid-logo"></use>
+</svg>
+
+                </a>
+            </div>
+            <ul class="glue-footer__global-links glue-no-bullet js-gt-global-nav-wrapper" role="list">
+                
+                <li class="glue-footer__global-links-list-item" data-gt-primary="About Google">
+                    <a class="glue-footer__link" href="https://about.google/" target="_blank" rel="noopener">
+                        About Google
+                    </a>
+                </li>
+                
+                <li class="glue-footer__global-links-list-item" data-gt-primary="Google Products">
+                    <a class="glue-footer__link" href="https://about.google/intl/en/products/" target="_blank" rel="noopener">
+                        Google Products
+                    </a>
+                </li>
+                
+                <li class="glue-footer__global-links-list-item" data-gt-primary="Privacy">
+                    <a class="glue-footer__link" href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+                        Privacy
+                    </a>
+                </li>
+                
+                <li class="glue-footer__global-links-list-item" data-gt-primary="Terms">
+                    <a class="glue-footer__link" href="https://policies.google.com/terms" target="_blank" rel="noopener">
+                        Terms
+                    </a>
+                </li>
+                
+            </ul>
+            <ul class="glue-footer__global-links glue-footer__global-links--extra glue-no-bullet" role="list">
+                <li class="glue-footer__global-links-list-item
+            glue-footer__global-links-list-item--extra">
+                    <a class="glue-footer__link" href="https://support.google.com/?hl=en">
+                        
+
+
+
+  
+
+<svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--24px glue-icon--footer-help">
+  <use href="/gr/static/assets/icons/glue-icons.svg#help"></use>
+</svg>
+
+                        Help
+                    </a>
+                </li>
+                <li class="glue-footer__global-links-list-item
+            glue-footer__global-links-list-item--extra">
+                    
+                        <button class="glue-footer__link google-feedback js-feedback-button" href="" data-product-id="5137383">
+                            Submit feedback
+                        </button>
+                    
+                </li>
+            </ul>
+        </nav>
+    </section>
+</footer>
+
+
+    
+    <script>
+        var scriptUrl = "https://www.gstatic.com/glue/v27_1/material-components-web.min.js";
+        var scriptElement = document.createElement('script');
+        scriptElement.async = false;
+        scriptElement.src = scriptUrl;
+        document.body.appendChild(scriptElement);
+    </script><script src="./Evaluating progress of LLMs on scientific problem-solving_files/material-components-web.min.js.download"></script>
+    <script>
+        var scriptUrl = "https://www.youtube.com/player_api";
+        var scriptElement = document.createElement('script');
+        scriptElement.async = false;
+        scriptElement.src = scriptUrl;
+        document.body.appendChild(scriptElement);
+    </script><script src="./Evaluating progress of LLMs on scientific problem-solving_files/player_api"></script>
+    <script>
+        var scriptUrl = "/gr/static/js/googleresearch.js?id=ad715e5b5b0f98a939316f109ff37c18";
+        var scriptElement = document.createElement('script');
+        scriptElement.async = false;
+        scriptElement.src = scriptUrl;
+        document.body.appendChild(scriptElement);
+    </script><script src="./Evaluating progress of LLMs on scientific problem-solving_files/googleresearch.js.download"></script>
+    <script>
+        var scriptUrl = "https://support.google.com/inapp/api.js";
+        var scriptElement = document.createElement('script');
+        scriptElement.async = false;
+        scriptElement.src = scriptUrl;
+        document.body.appendChild(scriptElement);
+    </script><script src="./Evaluating progress of LLMs on scientific problem-solving_files/api.js.download"></script>
+
+    
+    
+    
+
+    <script>
+        var scripts = [
+            "https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.js"
+        ];
+
+        scripts.forEach(function(scriptUrl) {
+            var scriptElement = document.createElement('script');
+            scriptElement.async = false;
+            scriptElement.src = scriptUrl;
+            scriptElement.setAttribute("data-glue-cookie-notification-bar-category", "2B");
+            document.body.appendChild(scriptElement);
+        });
+    </script><script src="./Evaluating progress of LLMs on scientific problem-solving_files/cookienotificationbar.min.js.download" data-glue-cookie-notification-bar-category="2B"></script>
+
+
+
+
+</body></html>
+
+

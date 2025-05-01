@@ -1,0 +1,149 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.0.2
+  python: circleci/python@2.0.3
+
+jobs:
+  build-and-test-frontend:
+    docker:
+      - image: cimg/node:16.14
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+          app-dir: ./frontend
+      - run:
+          name: Run frontend linting
+          command: cd frontend && npm run lint
+      - run:
+          name: Run frontend tests
+          command: cd frontend && npm test
+      - run:
+          name: Build frontend
+          command: cd frontend && npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - frontend/build
+
+  build-and-test-backend:
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+          packages:
+            - fastapi
+            - uvicorn
+            - qiskit
+            - pytest
+          app-dir: ./backend
+      - run:
+          name: Run backend tests
+          command: cd backend && pytest
+      - persist_to_workspace:
+          root: .
+          paths:
+            - backend
+
+  deploy-staging:
+    docker:
+      - image: cimg/base:2022.01
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install AWS CLI
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+      - run:
+          name: Deploy to AWS S3 (Frontend)
+          command: |
+            aws s3 sync frontend/build s3://kontour-coin-staging --delete
+      - run:
+          name: Deploy to AWS EC2 (Backend)
+          command: |
+            # This is a placeholder for the actual deployment script
+            echo "Deploying backend to staging environment"
+
+  deploy-production:
+    docker:
+      - image: cimg/base:2022.01
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install AWS CLI
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+      - run:
+          name: Deploy to AWS S3 (Frontend)
+          command: |
+            aws s3 sync frontend/build s3://kontour-coin-production --delete
+      - run:
+          name: Deploy to AWS EC2 (Backend)
+          command: |
+            # This is a placeholder for the actual deployment script
+            echo "Deploying backend to production environment"
+
+  performance-test:
+    docker:
+      - image: cimg/node:16.14
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+          app-dir: ./performance-tests
+      - run:
+          name: Install Lighthouse CI
+          command: npm install -g @lhci/cli@0.8.x
+      - run:
+          name: Run Lighthouse CI
+          command: |
+            lhci autorun --collect.url=https://staging.kontourcoin.io
+      - run:
+          name: Run WebPageTest
+          command: |
+            # This is a placeholder for the actual WebPageTest script
+            echo "Running WebPageTest on staging environment"
+
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - build-and-test-frontend
+      - build-and-test-backend
+      - deploy-staging:
+          requires:
+            - build-and-test-frontend
+            - build-and-test-backend
+          filters:
+            branches:
+              only: develop
+      - performance-test:
+          requires:
+            - deploy-staging
+          filters:
+            branches:
+              only: develop
+      - approve-production-deploy:
+          type: approval
+          requires:
+            - performance-test
+          filters:
+            branches:
+              only: main
+      - deploy-production:
+          requires:
+            - approve-production-deploy
+          filters:
+            branches:
+              only: main

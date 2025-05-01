@@ -1,0 +1,174 @@
+/* Optimization Visualizer Styles */
+
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border: none;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.card-header {
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 1rem 1.25rem;
+}
+
+.card-title {
+  color: #343a40;
+  font-weight: 600;
+}
+
+.metric-card {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.metric-card h6 {
+  color: #6c757d;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.metric-card h3 {
+  color: #343a40;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.progress {
+  height: 0.5rem;
+  border-radius: 1rem;
+  background-color: #e9ecef;
+}
+
+.progress-bar {
+  border-radius: 1rem;
+  background-color: #0d6efd;
+}
+
+#network-visualization, #model-visualization {
+  width: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #f8f9fa;
+}
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.node text {
+  font-size: 10px;
+  fill: #333;
+}
+
+.tooltip {
+  position: absolute;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  border-radius: 5px;
+  pointer-events: none;
+  font-size: 12px;
+}
+
+/* Animation for real-time updates */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(13, 110, 253, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Model visualization styles */
+.neuron {
+  fill: #4e73df;
+  stroke: #fff;
+  stroke-width: 1px;
+}
+
+.neuron.input {
+  fill: #36b9cc;
+}
+
+.neuron.output {
+  fill: #1cc88a;
+}
+
+.neuron.active {
+  fill: #f6c23e;
+}
+
+.connection {
+  stroke: #858796;
+  stroke-opacity: 0.3;
+}
+
+.connection.active {
+  stroke: #f6c23e;
+  stroke-opacity: 0.8;
+}
+
+/* Prediction results styles */
+.prediction-item {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  background-color: #f8f9fa;
+  border-left: 4px solid #0d6efd;
+}
+
+.prediction-item h6 {
+  color: #343a40;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.prediction-item p {
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+.prediction-item .confidence {
+  font-weight: 700;
+  color: #0d6efd;
+}
+
+.prediction-item.high-confidence {
+  border-left-color: #1cc88a;
+}
+
+.prediction-item.medium-confidence {
+  border-left-color: #f6c23e;
+}
+
+.prediction-item.low-confidence {
+  border-left-color: #e74a3b;
+}

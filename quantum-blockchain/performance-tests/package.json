@@ -1,0 +1,15 @@
+{
+  "name": "kontour-coin-performance-tests",
+  "version": "1.0.0",
+  "description": "Performance tests for Kontour Coin application",
+  "main": "index.js",
+  "scripts": {
+    "test": "node webpagetest-config.js && lhci autorun",
+    "lighthouse": "lhci autorun",
+    "webpagetest": "node webpagetest-config.js"
+  },
+  "dependencies": {
+    "@lhci/cli": "^0.11.0",
+    "webpagetest": "^0.6.0"
+  }
+}

@@ -1,0 +1,74 @@
+.qodo
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+logs
+*.log
+
+# Blockchain specific
+/blockchain/node_modules
+/blockchain/build
+/blockchain/dist
+/blockchain/.env
+
+# Quantum specific
+/quantum-blockchain/node_modules
+/quantum-blockchain/build
+/quantum-blockchain/dist
+/quantum-blockchain/.env
+
+# MongoDB data
+/data/db
+
+# Private keys and certificates
+*.pem
+*.key
+*.cert
+*.crt
+
+# Secrets
+secrets.json
+credentials.json

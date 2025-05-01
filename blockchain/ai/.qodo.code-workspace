@@ -1,0 +1,43 @@
+{
+	"folders": [
+		{
+			"path": "../../.qodo"
+		},
+		{
+			"path": "../../.vscode"
+		},
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../components"
+		},
+		{
+			"path": "../../Evaluating progress of LLMs on scientific problem-solving_files"
+		},
+		{
+			"path": "../../hooks"
+		},
+		{
+			"path": "../../pages"
+		},
+		{
+			"path": "../../quantum-blockchain"
+		},
+		{
+			"path": "../../scripts"
+		},
+		{
+			"path": "../../server"
+		},
+		{
+			"path": "../../solana-dapp"
+		},
+		{
+			"path": "../../styles"
+		},
+		{
+			"path": "../../types"
+		}
+	]
+}

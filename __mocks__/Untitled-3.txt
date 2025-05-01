@@ -1,0 +1,2 @@
+# For Linux/Mac
+chmod +x blockchain/workflow/start_workflow.sh

@@ -1,0 +1,209 @@
+version: '3.8'
+
+services:
+  # Python Backend
+  python-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - JAVA_BACKEND_URL=http://java-backend:8080/kontourcoin/api/v1
+    networks:
+      - kontourcoin-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/stats"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Java Backend
+  java-backend:
+    build:
+      context: ./java
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./java:/app
+    networks:
+      - kontourcoin-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/kontourcoin/api/v1/stats"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Web3 Server
+  web3-server:
+    build:
+      context: ./web3
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./web3:/app
+    environment:
+      - PYTHON_BACKEND_URL=http://python-backend:8000
+      - JAVA_BACKEND_URL=http://java-backend:8080/kontourcoin/api/v1
+    networks:
+      - kontourcoin-network
+    depends_on:
+      - python-backend
+      - java-backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Workflow Integration
+  workflow:
+    build:
+      context: ./workflow
+      dockerfile: Dockerfile
+    volumes:
+      - ./workflow:/app
+    environment:
+      - PYTHON_BACKEND_URL=http://python-backend:8000
+      - JAVA_BACKEND_URL=http://java-backend:8080/kontourcoin/api/v1
+    networks:
+      - kontourcoin-network
+    depends_on:
+      - python-backend
+      - java-backend
+    restart: on-failure
+
+  # Development Tools
+  dev-tools:
+    build:
+      context: ./dev
+      dockerfile: Dockerfile
+    volumes:
+      - ./dev:/app
+    environment:
+      - PYTHON_BACKEND_URL=http://python-backend:8000
+      - JAVA_BACKEND_URL=http://java-backend:8080/kontourcoin/api/v1
+      - WEB3_SERVER_URL=http://web3-server:3001
+    networks:
+      - kontourcoin-network
+    depends_on:
+      - python-backend
+      - java-backend
+      - web3-server
+    tty: true
+    stdin_open: true
+
+networks:
+  kontourcoin-network:
+    driver: bridgeversion: '3.8'
+
+services:
+  # Python Backend
+  python-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - JAVA_BACKEND_URL=http://java-backend:8080/kontourcoin/api/v1
+    networks:
+      - kontourcoin-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/stats"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Java Backend
+  java-backend:
+    build:
+      context: ./java
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./java:/app
+    networks:
+      - kontourcoin-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/kontourcoin/api/v1/stats"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Web3 Server
+  web3-server:
+    build:
+      context: ./web3
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./web3:/app
+    environment:
+      - PYTHON_BACKEND_URL=http://python-backend:8000
+      - JAVA_BACKEND_URL=http://java-backend:8080/kontourcoin/api/v1
+    networks:
+      - kontourcoin-network
+    depends_on:
+      - python-backend
+      - java-backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Workflow Integration
+  workflow:
+    build:
+      context: ./workflow
+      dockerfile: Dockerfile
+    volumes:
+      - ./workflow:/app
+    environment:
+      - PYTHON_BACKEND_URL=http://python-backend:8000
+      - JAVA_BACKEND_URL=http://java-backend:8080/kontourcoin/api/v1
+    networks:
+      - kontourcoin-network
+    depends_on:
+      - python-backend
+      - java-backend
+    restart: on-failure
+
+  # Development Tools
+  dev-tools:
+    build:
+      context: ./dev
+      dockerfile: Dockerfile
+    volumes:
+      - ./dev:/app
+    environment:
+      - PYTHON_BACKEND_URL=http://python-backend:8000
+      - JAVA_BACKEND_URL=http://java-backend:8080/kontourcoin/api/v1
+      - WEB3_SERVER_URL=http://web3-server:3001
+    networks:
+      - kontourcoin-network
+    depends_on:
+      - python-backend
+      - java-backend
+      - web3-server
+    tty: true
+    stdin_open: true
+
+networks:
+  kontourcoin-network:
+    driver: bridge
