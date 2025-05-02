@@ -2,148 +2,147 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Block;
 use App\Models\Transaction;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Services\BlockchainService;
+use Illuminate\Support\Facades\Validator;
 
 class BlockchainController extends Controller
 {
-    /**
-     * Get blockchain statistics.
-     *
-     * @return JsonResponse
-     */
-    public function getStats(): JsonResponse
+    protected $blockchainService;
+    
+    public function __construct(BlockchainService $blockchainService)
     {
-        // Get blockchain statistics
-        $blockCount = Block::count();
-        $transactionCount = Transaction::count();
-        $pendingTransactionCount = Transaction::where('status', 'pending')->count();
-        $accountCount = \App\Models\Account::count();
-        $smartContractCount = 0; // Not implemented yet
-        $aiModelCount = \App\Models\AIModel::count();
+        $this->blockchainService = $blockchainService;
+    }
+    
+    public function getHeight()
+    {
+        $height = $this->blockchainService->getCurrentBlockHeight();
         
-        // Calculate average block time
-        $avgBlockTime = 0;
-        if ($blockCount > 1) {
-            $latestBlocks = Block::orderBy('index', 'desc')->take(10)->get();
-            $totalTime = 0;
-            $count = 0;
+        if ($height === null) {
+            return response()->json(['error' => 'Failed to get blockchain height'], 500);
+        }
+        
+        return response()->json(['height' => $height]);
+    }
+    
+    public function getBlock($height)
+    {
+        // Try to get from database first
+        $block = Block::with('transactions')->where('height', $height)->first();
+        
+        if ($block) {
+            return response()->json($block);
+        }
+        
+        // If not in database, fetch from blockchain
+        $blockData = $this->blockchainService->getBlockByHeight($height);
+        
+        if (!$blockData) {
+            return response()->json(['error' => 'Block not found'], 404);
+        }
+        
+        return response()->json($blockData);
+    }
+    
+    public function getTransaction($hash)
+    {
+        // Try to get from database first
+        $transaction = Transaction::with('block')->where('hash', $hash)->first();
+        
+        if ($transaction) {
+            return response()->json($transaction);
+        }
+        
+        // If not in database, fetch from blockchain
+        $transactionData = $this->blockchainService->getTransactionByHash($hash);
+        
+        if (!$transactionData) {
+            return response()->json(['error' => 'Transaction not found'], 404);
+        }
+        
+        return response()->json($transactionData);
+    }
+    
+    public function submitTransaction(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'fromAddress' => 'required|string',
+            'toAddress' => 'required|string',
+            'amount' => 'required|numeric|min:0',
+            'signature' => 'required|string',
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+        
+        $transaction = [
+            'fromAddress' => $request->fromAddress,
+            'toAddress' => $request->toAddress,
+            'amount' => $request->amount,
+            'signature' => $request->signature,
+            'timestamp' => now()->timestamp,
+            'quantumSecure' => $request->quantumSecure ?? false,
+        ];
+        
+        $result = $this->blockchainService->submitTransaction($transaction);
+        
+        if (!$result) {
+            return response()->json(['error' => 'Failed to submit transaction'], 500);
+        }
+        
+        return response()->json($result);
+    }
+    
+    public function getBalance($address)
+    {
+        try {
+            $response = \Http::get("{$this->blockchainService->apiUrl}/api/blockchain/balance/{$address}");
             
-            for ($i = 0; $i < count($latestBlocks) - 1; $i++) {
-                $timeDiff = $latestBlocks[$i]->block_timestamp->timestamp - $latestBlocks[$i + 1]->block_timestamp->timestamp;
-                $totalTime += $timeDiff;
-                $count++;
+            if ($response->successful()) {
+                return response()->json($response->json());
             }
             
-            $avgBlockTime = $count > 0 ? $totalTime / $count : 0;
+            return response()->json(['error' => 'Failed to get balance'], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error getting balance: ' . $e->getMessage()], 500);
         }
-        
-        // Get quantum metrics
-        $quantumMetrics = $this->getQuantumMetrics();
-        
-        // Return statistics
-        return response()->json([
-            'block_count' => $blockCount,
-            'transaction_count' => $transactionCount,
-            'pending_transaction_count' => $pendingTransactionCount,
-            'account_count' => $accountCount,
-            'smart_contract_count' => $smartContractCount,
-            'ai_model_count' => $aiModelCount,
-            'avg_block_time' => $avgBlockTime,
-            'quantum_metrics' => $quantumMetrics,
-        ]);
     }
-
-    /**
-     * Get blockchain blocks.
-     *
-     * @return JsonResponse
-     */
-    public function getBlocks(): JsonResponse
+    
+    public function getDashboardData()
     {
-        // Get blocks with transactions
-        $blocks = Block::with('transactions')
-            ->orderBy('index', 'desc')
-            ->take(10)
-            ->get();
-        
-        return response()->json([
-            'blocks' => $blocks,
-        ]);
-    }
-
-    /**
-     * Get pending transactions.
-     *
-     * @return JsonResponse
-     */
-    public function getPendingTransactions(): JsonResponse
-    {
-        // Get pending transactions
-        $transactions = Transaction::where('status', 'pending')
-            ->orderBy('created_at', 'desc')
-            ->get();
-        
-        return response()->json([
-            'transactions' => $transactions,
-        ]);
-    }
-
-    /**
-     * Get quantum metrics.
-     *
-     * @return array
-     */
-    private function getQuantumMetrics(): array
-    {
-        // Get the latest block with quantum enhancement
-        $latestQuantumBlock = Block::where('quantum_enhanced', true)
-            ->orderBy('index', 'desc')
-            ->first();
-        
-        if ($latestQuantumBlock) {
-            return $latestQuantumBlock->quantum_metrics;
+        try {
+            // Get latest blocks
+            $latestBlocks = Block::with('transactions')
+                ->orderBy('height', 'desc')
+                ->limit(10)
+                ->get();
+            
+            // Get latest transactions
+            $latestTransactions = Transaction::with('block')
+                ->orderBy('created_at', 'desc')
+                ->limit(10)
+                ->get();
+            
+            // Get blockchain stats
+            $totalBlocks = Block::count();
+            $totalTransactions = Transaction::count();
+            $latestBlockHeight = Block::max('height');
+            
+            return response()->json([
+                'latestBlocks' => $latestBlocks,
+                'latestTransactions' => $latestTransactions,
+                'stats' => [
+                    'totalBlocks' => $totalBlocks,
+                    'totalTransactions' => $totalTransactions,
+                    'latestBlockHeight' => $latestBlockHeight,
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error getting dashboard data: ' . $e->getMessage()], 500);
         }
-        
-        // If no quantum-enhanced block exists, return default metrics
-        return [
-            'mining_speedup' => [
-                'recent' => $this->generateRandomArray(10, 1.5, 5.0),
-                'mean' => rand(20, 40) / 10,
-            ],
-            'verification_accuracy' => [
-                'recent' => $this->generateRandomArray(10, 0.9, 0.99),
-                'mean' => rand(90, 99) / 100,
-            ],
-            'ai_training_efficiency' => [
-                'recent' => $this->generateRandomArray(10, 2.0, 8.0),
-                'mean' => rand(30, 70) / 10,
-            ],
-            'optimization_quality' => [
-                'recent' => $this->generateRandomArray(10, 1.2, 4.0),
-                'mean' => rand(15, 35) / 10,
-            ],
-        ];
-    }
-
-    /**
-     * Generate a random array of values.
-     *
-     * @param int $count
-     * @param float $min
-     * @param float $max
-     * @return array
-     */
-    private function generateRandomArray(int $count, float $min, float $max): array
-    {
-        $result = [];
-        
-        for ($i = 0; $i < $count; $i++) {
-            $result[] = $min + mt_rand() / mt_getrandmax() * ($max - $min);
-        }
-        
-        return $result;
     }
 }

@@ -6,30 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('block_id')->constrained()->onDelete('cascade');
             $table->string('hash', 64)->unique();
-            $table->string('sender', 64);
-            $table->string('recipient', 64);
+            $table->string('from_address', 64)->nullable();
+            $table->string('to_address', 64);
             $table->decimal('amount', 18, 8);
-            $table->timestamp('transaction_timestamp');
-            $table->string('type')->default('transfer');
-            $table->json('data')->nullable();
-            $table->string('status')->default('pending');
-            $table->foreignId('block_id')->nullable()->constrained('blocks')->onDelete('set null');
+            $table->decimal('fee', 18, 8)->default(0);
+            $table->text('signature');
+            $table->timestamp('timestamp');
+            $table->boolean('quantum_secure')->default(false);
             $table->timestamps();
+            
+            $table->index('hash');
+            $table->index('from_address');
+            $table->index('to_address');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('transactions');
     }

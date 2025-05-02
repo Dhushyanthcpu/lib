@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import * as events from 'events';
 import { FidelityMLWorkflow } from './FidelityMLWorkflow';
 import { Transaction } from '../Block';
 import { MarketData, AIPrediction } from '../types/market';
@@ -135,6 +136,11 @@ export class QuantumDeepLearningWorkflow extends EventEmitter {
   private readonly DEFAULT_CIRCUIT_DEPTH = 8;
   private readonly QUANTUM_NOISE_LEVEL = 0.01;
   private readonly ENTANGLEMENT_THRESHOLD = 0.7;
+  
+  // Explicitly declare the emit method from EventEmitter
+  emit(event: string | symbol, ...args: any[]): boolean {
+    return super.emit(event, ...args);
+  }
 
   /**
    * Constructor for the QuantumDeepLearningWorkflow

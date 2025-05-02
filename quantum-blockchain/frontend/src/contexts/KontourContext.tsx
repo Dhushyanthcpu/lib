@@ -171,8 +171,19 @@ export const KontourProvider: React.FC<KontourProviderProps> = ({ children }) =>
     setErrors(prev => ({ ...prev, stats: null }));
     
     try {
-      const response = await axios.get(`${API_URL}/blockchain/stats`);
-      setStats(response.data);
+      // Get basic blockchain stats
+      const statsResponse = await axios.get(`${API_URL}/blockchain/stats`);
+      const basicStats = statsResponse.data;
+      
+      // Get quantum metrics
+      const quantumResponse = await axios.get(`${API_URL}/dashboard/quantum-metrics`);
+      const quantumMetrics = quantumResponse.data.data.quantum_metrics;
+      
+      // Combine the data
+      setStats({
+        ...basicStats,
+        quantum_metrics: quantumMetrics
+      });
     } catch (error) {
       console.error('Error fetching blockchain stats:', error);
       setErrors(prev => ({ ...prev, stats: 'Failed to fetch blockchain stats' }));

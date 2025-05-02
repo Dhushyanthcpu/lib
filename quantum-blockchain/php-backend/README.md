@@ -1,38 +1,42 @@
 # Quantum Blockchain PHP Backend
 
-This is a Laravel-based RESTful API backend for the Quantum Blockchain project. It provides endpoints for blockchain operations, account management, transaction processing, mining, AI model training, and security analysis.
+This is the Laravel backend for the Quantum Blockchain application.
 
-## Features
-
-- RESTful API for blockchain operations
-- Admin dashboard for monitoring and management
-- MySQL database for data persistence
-- Laravel framework for robust application structure
-- Docker support for easy deployment
-
-## API Endpoints
-
-- `/blockchain/stats` - Get blockchain statistics
-- `/blockchain/blocks` - Get blockchain blocks
-- `/blockchain/pending-transactions` - Get pending transactions
-- `/accounts/{address}/balance` - Get account balance
-- `/accounts/create` - Create a new account
-- `/transactions/create` - Create a new transaction
-- `/mining/mine-block` - Mine a new block
-- `/ai/train` - Train an AI model
-- `/ai/predict` - Make predictions with an AI model
-- `/optimization/optimize` - Optimize blockchain operations
-- `/security/analyze` - Analyze blockchain security
-
-## Setup Instructions
+## Installation
 
 1. Clone the repository
-2. Install dependencies: `composer install`
-3. Set up environment variables: Copy `.env.example` to `.env` and configure
-4. Run migrations: `php artisan migrate`
-5. Start the server: `php artisan serve`
+2. Install dependencies:
+   ```bash
+   composer install
+   ```
+3. Copy the `.env.example` file to `.env` and configure your environment:
+   ```bash
+   cp .env.example .env
+   ```
+4. Generate an application key:
+   ```bash
+   php artisan key:generate
+   ```
+5. Run migrations:
+   ```bash
+   php artisan migrate
+   ```
+6. Start the development server:
+   ```bash
+   php artisan serve
+   ```
 
-## Docker Setup
+## Blockchain Sync
 
-1. Build the Docker image: `docker build -t quantum-blockchain-php .`
-2. Run the container: `docker run -p 8001:8001 quantum-blockchain-php`
+To synchronize blockchain data with the database:
+
+```bash
+# Sync the latest 10 blocks
+php artisan blockchain:sync --latest=10
+
+# Sync specific block range
+php artisan blockchain:sync --start=1000 --end=1100
+
+# Force sync (overwrite existing blocks)
+php artisan blockchain:sync --force
+```

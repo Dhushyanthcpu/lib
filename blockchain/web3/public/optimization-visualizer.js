@@ -1,3 +1,4 @@
+<script src="https://cdn.jsdelivr.net/npm/tensorflow@3.19.0/dist/tf.min.js"></script>
 /**
  * Kontour Coin Optimization Visualizer
  * Frontend JavaScript for blockchain visualization and deep learning integration
@@ -42,7 +43,7 @@ let optimizationData = {
 // TensorFlow model variables
 let model;
 let trainingData;
-let predictionResults = [];
+let modelPredictionResults = [];
 
 // DOM elements
 const networkVisualization = document.getElementById('network-visualization');
@@ -60,7 +61,7 @@ const txProgress = document.getElementById('tx-progress');
 const blockTimeProgress = document.getElementById('block-time-progress');
 const efficiencyProgress = document.getElementById('efficiency-progress');
 const complexityProgress = document.getElementById('complexity-progress');
-const predictionResults = document.getElementById('prediction-results');
+const predictionResultsElement = document.getElementById('prediction-results');
 const applyPredictionBtn = document.getElementById('apply-prediction-btn');
 
 // Bootstrap modal
@@ -745,7 +746,7 @@ function runPrediction() {
 // Display prediction results
 function displayPredictionResults(results) {
   // Clear previous results
-  predictionResults.innerHTML = '';
+  predictionResultsElement.innerHTML = '';
   
   // Add results to the modal
   results.forEach(result => {
@@ -762,7 +763,7 @@ function displayPredictionResults(results) {
       </div>
     `;
     
-    predictionResults.innerHTML += resultHtml;
+    predictionResultsElement.innerHTML += resultHtml;
   });
   
   // Show modal

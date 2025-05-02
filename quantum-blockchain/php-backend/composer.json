@@ -5,11 +5,9 @@
     "keywords": ["laravel", "blockchain", "quantum", "api"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
-        "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^10.10",
-        "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8"
+        "php": "^8.0",
+        "laravel/framework": "^9.0",
+        "laravel/sanctum": "^3.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

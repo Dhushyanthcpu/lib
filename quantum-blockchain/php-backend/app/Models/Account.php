@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Account extends Model
 {
@@ -19,6 +20,10 @@ class Account extends Model
         'balance',
         'public_key',
         'private_key',
+        'user_id',
+        'name',
+        'is_primary',
+        'type',
     ];
 
     /**
@@ -37,14 +42,32 @@ class Account extends Model
      */
     protected $casts = [
         'balance' => 'decimal:8',
+        'is_primary' => 'boolean',
     ];
+
+    /**
+     * Get the user that owns the account.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Generate a new account.
      *
+     * @param int|null $userId
+     * @param string|null $name
+     * @param bool $isPrimary
+     * @param string $type
      * @return self
      */
-    public static function generate(): self
+    public static function generate(
+        ?int $userId = null, 
+        ?string $name = null, 
+        bool $isPrimary = false,
+        string $type = 'standard'
+    ): self
     {
         // Generate a random address with KTR prefix
         $address = 'KTR' . bin2hex(random_bytes(30));
@@ -55,6 +78,26 @@ class Account extends Model
             'balance' => 100, // Initial balance
             'public_key' => bin2hex(random_bytes(32)),
             'private_key' => bin2hex(random_bytes(32)),
+            'user_id' => $userId,
+            'name' => $name ?? 'Account ' . substr($address, 0, 8),
+            'is_primary' => $isPrimary,
+            'type' => $type,
         ]);
+    }
+    
+    /**
+     * Get sent transactions.
+     */
+    public function sentTransactions()
+    {
+        return Transaction::where('sender', $this->address);
+    }
+    
+    /**
+     * Get received transactions.
+     */
+    public function receivedTransactions()
+    {
+        return Transaction::where('recipient', $this->address);
     }
 }

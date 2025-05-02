@@ -17,7 +17,15 @@ return new class extends Migration
             $table->decimal('balance', 18, 8)->default(0);
             $table->string('public_key')->nullable();
             $table->string('private_key')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->string('name')->nullable();
+            $table->boolean('is_primary')->default(false);
+            $table->string('type')->default('standard'); // standard, savings, trading, etc.
             $table->timestamps();
+            
+            // Add indexes for better performance
+            $table->index('user_id');
+            $table->index('type');
         });
     }
 

@@ -73,6 +73,8 @@ interface WorkflowResult {
  * 6. Explainability and compliance reporting
  */
 export class FidelityMLWorkflow extends EventEmitter {
+  // emit method is inherited from EventEmitter
+  
   private dataPreprocessingConfig: DataPreprocessingConfig;
   private modelConfig: ModelConfig;
   private featureEngineeringConfig: FeatureEngineeringConfig;
@@ -188,7 +190,7 @@ export class FidelityMLWorkflow extends EventEmitter {
   public async ingestData(data: MarketData): Promise<boolean> {
     // Validate data
     if (!this.validateData(data)) {
-      this.emit('dataValidationFailed', { data, timestamp: Date.now() });
+      this.emit('dataValidationFailed', { data, timestamp: Date.now() } as const);
       return false;
     }
     

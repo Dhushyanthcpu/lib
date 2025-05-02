@@ -6,7 +6,11 @@
 const express = require('express');
 const axios = require('axios');
 const tf = require('@tensorflow/tfjs-node');
-const router = express.Router();
+const router = express.Router();cd dev
+npm install
+npm run setup
+node index.js start
+
 
 // TensorFlow model cache
 const modelCache = {};

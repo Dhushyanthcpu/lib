@@ -6,29 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('blocks', function (Blueprint $table) {
             $table->id();
-            $table->integer('index')->unique();
-            $table->timestamp('block_timestamp');
-            $table->string('previous_hash', 64);
+            $table->unsignedBigInteger('height')->unique();
             $table->string('hash', 64)->unique();
-            $table->integer('nonce');
+            $table->string('previous_hash', 64);
+            $table->timestamp('timestamp');
             $table->integer('difficulty');
-            $table->boolean('quantum_enhanced')->default(false);
-            $table->json('quantum_metrics')->nullable();
+            $table->unsignedBigInteger('nonce');
+            $table->integer('size')->default(0);
+            $table->text('quantum_signature')->nullable();
             $table->timestamps();
+            
+            $table->index('height');
+            $table->index('hash');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('blocks');
     }
