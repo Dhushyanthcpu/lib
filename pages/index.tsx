@@ -8,7 +8,7 @@ import MarketAnalysis from '../components/MarketAnalysis';
 import { ethers } from 'ethers';
 
 // Import quantum components
-import { QuantumNeuralNetwork, OptimizationMethod, NoiseModel } from '../blockchain/ai/QuantumNeuralNetwork';
+import { QuantumNeuralNetwork, OptimizationMethod, NoiseModel, QuantumLayerType } from '../blockchain/ai/QuantumNeuralNetwork';
 
 const Home: NextPage = () => {
   const { t } = useTranslation();

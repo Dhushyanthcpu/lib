@@ -111,6 +111,7 @@ If components are missing or have errors:
 
 3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+# Quantum Blockchain Frontend Debugging Guide
 ## Troubleshooting
 
 If you encounter any issues not covered in this guide:

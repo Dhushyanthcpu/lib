@@ -20,6 +20,13 @@ export interface WorkflowConfig {
   [key: string]: any;
 }
 
+export interface WorkflowStats {
+  transactions_processed: number;
+  blocks_mined: number;
+  sync_errors: number;
+  contours_verified: number;
+}
+
 // Define the MineBlockParams interface
 export interface MineBlockParams {
   block_data: string;

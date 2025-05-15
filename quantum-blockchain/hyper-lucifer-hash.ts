@@ -45,7 +45,7 @@ export class HyperLuciferHash {
   private generateInitialDynamicMix(): number {
     const timestamp = Date.now();
     const data = Buffer.from(timestamp.toString());
-    const hash = createHash('sha256').update(data).digest();
+    const hash = Buffer.from(createHash('sha256').update(data).digest());
     return hash.readUInt32BE(0);
   }
 
@@ -86,7 +86,7 @@ export class HyperLuciferHash {
       Buffer.from(timestamp.toString()),
       Buffer.from(Math.random().toString())
     ]);
-    const hash = createHash('sha256').update(data).digest();
+    const hash = Buffer.from(createHash('sha256').update(data).digest());
     this.state.dynamicMix = hash.readUInt32BE(0);
   }
 

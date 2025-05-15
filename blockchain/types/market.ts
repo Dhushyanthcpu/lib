@@ -10,6 +10,7 @@ export interface MarketData {
   previousPrices?: number[];
   volume24h?: number;
   averageVolume?: number;
+  totalSupply?: number;
 }
 
 export interface AIPrediction {
